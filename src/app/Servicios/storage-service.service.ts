@@ -11,9 +11,8 @@ export class StorageServiceService {
 
   //---GET IMAGENES--//
   readonly UrlGetImagenes = "http://127.0.0.1:3333/Imagen";
-  
   GetImage(){
-    return this.Imagen=this.http.get(this.UrlGetImagenes);
+    return this.http.get(this.UrlGetImagenes);
   }
 
 }
