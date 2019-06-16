@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { AuthService } from 'src/app/Servicios/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -8,29 +10,32 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 })
 export class AuthComponent implements OnInit {
 
-  
+  //reactive forms
+  form = new FormGroup({
+    nickname: new FormControl('',
+    [
+      Validators.required,
+      Validators.minLength(2),
+    ]),
+    password: new FormControl('',
+    [
+      Validators.required,
+      Validators.minLength(6)
+    ])
+  });
 
 
-  constructor() { }
+  constructor(private auth_service: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
-
-  // savePersona() {
-  //   const nvaPersona = new Persona(
-  //     this.form.value.nombre,
-  //     this.form.value.apellido,
-  //     this.form.value.correo,
-  //     this.form.value.contrasena,
-  //   )
-
-  //   this.nvaPersona = this._service.postPersona(nvaPersona);
-
-  //   this.nvaPersona.subscribe(data => {
-  //     this._service.agregarPersona(data);
-  //   })
-
-  // }
+  login() {
+    this.auth_service.jugador(this.form.value.nickname, this.form.value.password, 'login')
+                     .subscribe(data => {
+                          localStorage.setItem('token', data);
+                          this.router.navigate(['/']);
+                     });
+  }
 
 }
