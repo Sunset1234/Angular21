@@ -1,11 +1,12 @@
 <div class="row">
   <!--Hay una manera de reutilizar componentes pero neta me dio flojera investigar-->
-  <form name="form" [(formGroup)]="form" (ngSubmit)="login()" class="col-md-4" style="border: 1px solid; margin-top: 2%;">
-    <div class="form-group" style="margin-top: 5%;">
-      <label for="">Nickname</label>
-      <input type="text" class="form-control" placeholder="Ingrese su nickname"
-             formControlName="nickname"
-             [ngClass]="{'is-invalid': form.get('nickname').touched && form.get('nickname').invalid, 'is-valid': form.get('nickname').touched && form.get('nickname').valid}">
+  <div class="col-12">
+    <form name="form" [(formGroup)]="form" (ngSubmit)="login()" class="col-md-4" style="border: 1px solid; margin-top: 2%;">
+      <div class="form-group" style="margin-top: 5%;">
+        <label for="">Nickname</label>
+        <input type="text" class="form-control" placeholder="Ingrese su nickname"
+              formControlName="nickname"
+              [ngClass]="{'is-invalid': form.get('nickname').touched && form.get('nickname').invalid, 'is-valid': form.get('nickname').touched && form.get('nickname').valid}">
       <div class="invalid-feedback">
         <ul>
           <li>El nickname es obligatorio.</li>
@@ -26,7 +27,8 @@
       </div>
     </div>
     <div class="form-group">
-    <button type="submit" class="btn btn-primary offset-md-3" [disabled]="!form.valid" style="margin-bottom: 5%;">Crear</button>
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="!form.valid" style="margin-bottom: 5%;">Iniciar</button>
     </div>
   </form>
+  </div>
 </div>
