@@ -10,7 +10,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './Interceptores/authInterceptor.interceptor';
 import { BarraComponent } from './barra/barra.component';
 import {HttpClient,HttpHeaders} from '@angular/common/http';
-import {HttpClientModule}from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,12 +21,9 @@ import {HttpClientModule}from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-<<<<<<< HEAD
-    HttpClientModule
-=======
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
     {
@@ -35,7 +31,6 @@ import {HttpClientModule}from '@angular/common/http';
       useClass: AuthInterceptor,
       multi: true
     }
->>>>>>> b4f01fcdb32a616673601b602c2f11826831c0f6
   ],
   bootstrap: [AppComponent],
   

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { StorageServiceService} from'./Servicios/storage-service.service';
 
+import {Pipe, PipeTransform} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,7 +21,7 @@ export class AppComponent {
   getImage(){
     this._StorageService.GetImage().subscribe(resultado => {
       this.img=resultado;
-      console.log(String(this.img));
+      console.log("que onda "+this.img)
     });
   }
 
