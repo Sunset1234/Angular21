@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { AuthService } from 'src/app/Servicios/auth.service';
+import { JugadorService } from 'src/app/Servicios/jugador.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -23,13 +24,19 @@ export class RegistroComponent implements OnInit {
     ])
   });
 
-  constructor(private auth_service: AuthService) { }
+  constructor(private jugador_service: JugadorService, private router: Router) { }
 
   ngOnInit() {
   }
 
   crearJugador() {
-    this.auth_service.jugador(this.form.value.nickname, this.form.value.password, 'jugador').subscribe(data => alert(data));
+    this.jugador_service.jugador(this.form.value.nickname, this.form.value.password, 'jugador')
+                        .subscribe(data => {
+                          //si está recién registrado, quiero mostrar un mensaje en el componente de login
+                          localStorage.setItem('recien', '1');
+
+                          this.router.navigate(['/login']);
+                        });
   }
 
 }
