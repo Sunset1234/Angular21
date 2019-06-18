@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,HttpHeaders} from '@angular/common/http'
-
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,10 @@ export class StorageServiceService {
 
   //---GET IMAGENES--//
   readonly UrlGetImagenes = "http://127.0.0.1:3333/Imagen";
+  img:any;
   GetImage(){
-    return this.http.get(this.UrlGetImagenes);
+    this.img=this.http.get(this.UrlGetImagenes);
+    return this.img;
   }
 
 }

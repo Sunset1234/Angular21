@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { StorageServiceService} from'./Servicios/storage-service.service';
 
 import {Pipe, PipeTransform} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
+import { Ptor } from 'protractor';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent{
+
   title = 'BlackJack';
 
 
@@ -17,11 +19,42 @@ export class AppComponent {
     this.getImage();
   }
 
+/*
+  ngOnChanges():void {
+    map(this.img, this);
+
+    function map(element:Card, instance:CardComponent):void {
+        if (element) {
+            instance.header = instance.sanitization.bypassSecurityTrustHtml(element.header);
+
+            instance.content = _.map(instance.element.content, (input:string):SafeHtml => {
+                return instance.sanitization.bypassSecurityTrustHtml(input);
+            });
+
+            if (element.image) {
+                /* Here is the problem... I have also used bypassSecurityTrustUrl */ /*
+                instance.image = instance.sanitization.bypassSecurityTrustStyle(element.image);
+            } else {
+                instance.image = null;
+            }
+
+        }
+    }
+}*/
+
   img:any;
   getImage(){
     this._StorageService.GetImage().subscribe(resultado => {
       this.img=resultado;
-      console.log("que onda "+this.img)
+
+      var file:File =this.img;
+      var myReader:FileReader = new FileReader();
+    
+      myReader.onloadend = (e) => {
+        this.img = myReader.result;
+      }
+      this.img=myReader.readAsDataURL(file);
+      
     });
   }
 
