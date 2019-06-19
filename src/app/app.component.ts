@@ -16,7 +16,7 @@ export class AppComponent{
 
 
   constructor(private _StorageService:StorageServiceService){
-    this.getImage();
+   /* this.getImage();*/
   }
 
 /*
@@ -49,12 +49,12 @@ export class AppComponent{
 
       var file:File =this.img;
       var myReader:FileReader = new FileReader();
-    
+
       myReader.onloadend = (e) => {
         this.img = myReader.result;
       }
       this.img=myReader.readAsDataURL(file);
-      
+
     });
   }
 

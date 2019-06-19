@@ -4,10 +4,11 @@ import { RegistroComponent } from './Componentes/registro/registro.component';
 import { AuthComponent } from './Componentes/auth/auth.component';
 import { AuthService } from './Servicios/auth.service';
 import { AuthGuard } from './Guards/auth.guard';
+import { TableroComponent } from './Componentes/tablero/tablero.component';
 
 const routes: Routes = [
   {
-    path: 'crear', 
+    path: 'crear',
     component: RegistroComponent,
     canActivate: [AuthGuard]
   },
@@ -16,6 +17,10 @@ const routes: Routes = [
     component: AuthComponent,
     canActivate: [AuthGuard]
     // canActivate: guard para saber si está o no logeado
+  },
+  {
+    path: 'tablero',
+    component:TableroComponent
   }
 ];
 
