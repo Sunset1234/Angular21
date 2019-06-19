@@ -11,6 +11,7 @@ import { AuthInterceptor } from './Interceptores/authInterceptor.interceptor';
 import { BarraComponent } from './barra/barra.component';
 import {HttpClient,HttpHeaders} from '@angular/common/http';
 import { TableroComponent } from './Componentes/tablero/tablero.component';
+import { LobbyComponent } from './Componentes/lobby/lobby.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TableroComponent } from './Componentes/tablero/tablero.component';
     AuthComponent,
     RegistroComponent,
     BarraComponent,
-    TableroComponent
+    TableroComponent,
+    LobbyComponent
   ],
   imports: [
     BrowserModule,
