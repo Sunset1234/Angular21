@@ -14,14 +14,8 @@ export class AppComponent{
 
   title = 'BlackJack';
 
-
-<<<<<<< HEAD
   constructor(private _StorageService:StorageServiceService,private sanitizer: DomSanitizer){
     this.getImage();
-=======
-  constructor(private _StorageService:StorageServiceService){
-   /* this.getImage();*/
->>>>>>> 2572eac49ae5f68c9ab105678877f0a88d705102
   }
 
 /*
