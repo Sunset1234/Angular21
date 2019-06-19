@@ -15,38 +15,15 @@ export class AppComponent{
   title = 'BlackJack';
 
   constructor(private _StorageService:StorageServiceService,private sanitizer: DomSanitizer){
-    this.getImage();
+    //this.getImage();
   }
 
-/*
-  ngOnChanges():void {
-    map(this.img, this);
-
-    function map(element:Card, instance:CardComponent):void {
-        if (element) {
-            instance.header = instance.sanitization.bypassSecurityTrustHtml(element.header);
-
-            instance.content = _.map(instance.element.content, (input:string):SafeHtml => {
-                return instance.sanitization.bypassSecurityTrustHtml(input);
-            });
-
-            if (element.image) {
-                /* Here is the problem... I have also used bypassSecurityTrustUrl */ /*
-                instance.image = instance.sanitization.bypassSecurityTrustStyle(element.image);
-            } else {
-                instance.image = null;
-            }
-
-        }
-    }
-}*/
-
-  img:any;
+  /*img:any;
   getImage(){
     this._StorageService.GetImage().subscribe(resultado => {
       this.img=resultado;
       console.log(this.img);
     });
-  }
+  }*/
 
 }
