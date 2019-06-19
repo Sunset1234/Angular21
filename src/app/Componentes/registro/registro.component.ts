@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { JugadorService } from 'src/app/Servicios/jugador.service';
 import { Router } from '@angular/router';
+import Ws from '@adonisjs/websocket-client';
 
 @Component({
   selector: 'app-registro',
@@ -9,6 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
+
+  ws = Ws('ws://localhost:3333');
 
   //reactive forms
   form = new FormGroup({
