@@ -44,8 +44,7 @@ export class AppComponent{
   img:any;
   getImage(){
     this._StorageService.GetImage().subscribe(resultado => {
-      this.img=resultado.path;
-      let trustedurl = this.sanitizer.bypassSecurityTrustUrl(this.img);
+      this.img=resultado;
       console.log(this.img);
     });
   }
