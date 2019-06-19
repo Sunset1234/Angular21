@@ -5,6 +5,7 @@ import { AuthComponent } from './Componentes/auth/auth.component';
 import { AuthService } from './Servicios/auth.service';
 import { AuthGuard } from './Guards/auth.guard';
 import { TableroComponent } from './Componentes/tablero/tablero.component';
+import { LobbyComponent } from './Componentes/lobby/lobby.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,11 @@ const routes: Routes = [
   {
     path: 'tablero',
     component:TableroComponent
+  },
+  {
+    path: 'lobby',
+    component: LobbyComponent,
+    //canActivate: [AuthGuard]
   }
 ];
 

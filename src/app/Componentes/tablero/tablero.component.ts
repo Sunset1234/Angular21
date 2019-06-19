@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import Ws from '@adonisjs/websocket-client';
 @Component({
   selector: 'app-tablero',
   templateUrl: './tablero.component.html',
@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableroComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+   }
 
   ngOnInit() {
   }
