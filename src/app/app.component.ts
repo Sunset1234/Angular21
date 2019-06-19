@@ -4,6 +4,7 @@ import { StorageServiceService} from'./Servicios/storage-service.service';
 import {Pipe, PipeTransform} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import { Ptor } from 'protractor';
+import { Carta } from './Modelos/Carta';
 
 @Component({
   selector: 'app-root',
@@ -14,17 +15,18 @@ export class AppComponent{
 
   title = 'BlackJack';
 
-
   constructor(private _StorageService:StorageServiceService){
-    // this.getImage();
+    
   }
 
-  /*img:any;
+  img:any;
+  img2:any;
   getImage(){
-    this._StorageService.GetImage().subscribe(resultado => {
+    this._StorageService.GetCartas().subscribe(resultado => {
       this.img=resultado;
-      console.log(this.img);
+      this.img2=this.img[2].src;
+      console.log(this.img2);
     });
-  }*/
+  }
 
 }
