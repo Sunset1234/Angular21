@@ -15,7 +15,7 @@ export class AppComponent{
   title = 'BlackJack';
 
 
-  constructor(private _StorageService:StorageServiceService){
+  constructor(private _StorageService:StorageServiceService,private sanitizer: DomSanitizer){
     this.getImage();
   }
 
@@ -45,16 +45,9 @@ export class AppComponent{
   img:any;
   getImage(){
     this._StorageService.GetImage().subscribe(resultado => {
-      this.img=resultado;
-
-      var file:File =this.img;
-      var myReader:FileReader = new FileReader();
-    
-      myReader.onloadend = (e) => {
-        this.img = myReader.result;
-      }
-      this.img=myReader.readAsDataURL(file);
-      
+      this.img=resultado.path;
+      let trustedurl = this.sanitizer.bypassSecurityTrustUrl(this.img);
+      console.log(this.img);
     });
   }
 
