@@ -16,7 +16,7 @@ export class AppComponent{
 
 
   constructor(private _StorageService:StorageServiceService){
-    this.getImage();
+    // this.getImage();
   }
 
 /*

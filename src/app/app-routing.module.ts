@@ -4,6 +4,7 @@ import { RegistroComponent } from './Componentes/registro/registro.component';
 import { AuthComponent } from './Componentes/auth/auth.component';
 import { AuthService } from './Servicios/auth.service';
 import { AuthGuard } from './Guards/auth.guard';
+import { LobbyComponent } from './Componentes/lobby/lobby.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,11 @@ const routes: Routes = [
     component: AuthComponent,
     canActivate: [AuthGuard]
     // canActivate: guard para saber si está o no logeado
+  },
+  {
+    path: 'lobby',
+    component: LobbyComponent,
+    //canActivate: [AuthGuard]
   }
 ];
 
