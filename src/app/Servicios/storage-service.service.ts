@@ -10,10 +10,10 @@ export class StorageServiceService {
   constructor(private http:HttpClient) { }
 
   //---GET IMAGENES--//
-  readonly UrlGetImagenes = "http://127.0.0.1:3333/Imagen";
+  readonly UrlGetCartas = "http://127.0.0.1:3333/Imagen";
   img:any;
-  GetImage(){
-    this.img=this.http.get(this.UrlGetImagenes);
+  GetCartas(){
+    this.img=this.http.get(this.UrlGetCartas);
     return this.img;
   }
 
