@@ -1,11 +1,11 @@
 <div class="row">
   <!--Hay una manera de reutilizar componentes pero neta me dio flojera investigar-->
   <form name="form" [(formGroup)]="form" (ngSubmit)="login()" class="col-md-4" style="border: 1px solid; margin-top: 2%;">
- 
+
     <div class="alert alert-primary" *ngIf="creado > 0" role="alert">
       <strong>Usuario registrado con éxito. Espere a ser dado de alta por un administrador</strong>
-    </div>    
- 
+    </div>
+
     <div class="form-group" style="margin-top: 5%;">
       <label for="">Nickname</label>
       <input type="text" class="form-control" placeholder="Ingrese su nickname"
@@ -34,5 +34,10 @@
     <button type="submit" class="btn btn-primary btn-block" [disabled]="!form.valid" style="margin-bottom: 5%;">Iniciar</button>
     </div>
   </form>
+<<<<<<< HEAD
 </div>
   
+=======
+  </div>
+
+>>>>>>> 2572eac49ae5f68c9ab105678877f0a88d705102
