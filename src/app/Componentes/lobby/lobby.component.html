@@ -22,10 +22,16 @@
       <tr *ngFor="let item of salas">
         <td scope="row">{{item.id}}</td>
         <td>{{item.nombre_sala}} ({{item.numero_jugadores}} / 4) </td>
-        <td></td>
+        <td>
+          <p *ngFor="let player of item.jugadores; let i = index"><b>{{i + 1}} {{player.nickname}}</b></p>
+        </td>
         <td>
           <div>
-            <button type="button" class="btn btn-secondary form-control" style="display: block; margin-bottom: 2%;">Unirse al juego</button>
+            <button type="button" class="btn btn-secondary form-control"
+                    style="display: block; margin-bottom: 2%;" (click)="unirse(item.id)"
+                    [ngStyle]="{'display': (item.numero_jugadores >= 4 ? 'none' : 'block')}">
+                    Unirse al juego
+            </button>
             <button type="button" class="btn btn-secondary form-control">Ver juego</button></div>
         </td>
       </tr>

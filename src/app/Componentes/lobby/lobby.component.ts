@@ -12,50 +12,37 @@ import { JuegoService } from 'src/app/Servicios/juego.service';
 })
 export class LobbyComponent implements OnInit {
 
-  //inicializo el websocket. hace referencia a la url del servidor (Adonis)
-  // ws = Ws('ws://localhost:3333');
-
+  socket= Ws('ws://localhost:3333');
   channel: any;
   id:string;
   room:string='';
-
   salas: Array<any>;
-
 
   constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, private juego_service: JuegoService) {
     this.socket = this.socket.connect();
     const lobby = this.socket.subscribe('lobby');
     
-    lobby.on('open', data => {
- 
-    });
+    lobby.on('open', data => { });
 
-    lobby.on('error', data => {
+    lobby.on('error', data => { });
 
-    });
-
-    lobby.on('ready', data => {
-
-    });
+    lobby.on('ready', data => { });
 
     lobby.on('message', (data) => {
       this.juego_service.getRooms().subscribe(res => {
         this.salas = res.rooms
-        // this.users = res.users
       });
     });
-
-    //this.ws.getSubscription('chat:'+ this.room).emit('message','')
    }
 
-   socket= Ws('ws://localhost:3333');
-
   ngOnInit() {
-
     this.juego_service.getRooms().subscribe( data => {
       this.salas = data.rooms;
+      // debugger;
     })
+  }
 
-
+  unirse(roomId) {
+    debugger;
   }
 }
