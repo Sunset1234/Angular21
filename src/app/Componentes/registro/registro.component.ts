@@ -11,9 +11,6 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
-
-  ws = Ws('ws://localhost:3333');
-
   //reactive forms
   form = new FormGroup({
     nickname: new FormControl('',
@@ -28,7 +25,7 @@ export class RegistroComponent implements OnInit {
     ])
   });
 
-  socket= Ws('ws://localhost:3333');
+  socket = Ws('ws://localhost:3333');
 
   constructor(private jugador_service: JugadorService, private router: Router, private http: HttpClient) { }
 
@@ -49,7 +46,6 @@ export class RegistroComponent implements OnInit {
 
 
   crearJuego() {
-    
     const hola = {
       nombre_sala: "LAME GAMES VERSIÓN 3.1"
     };
