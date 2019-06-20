@@ -23,3 +23,7 @@ export class TableroComponent implements OnInit {
   }
 
 }
+/**
+ * https://imgur.com/bUgJqBI tabla en blanco
+ * https://i.imgur.com/VBaXzjM.png con letras
+*/
