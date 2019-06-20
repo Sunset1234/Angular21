@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
   //promesa porque ejecuta el resto del código sin la petición
   async canActivate(route: import("@angular/router").ActivatedRouteSnapshot, state: import("@angular/router").RouterStateSnapshot): Promise<boolean> {
     var toLogin = route.url[0].path === 'login' ? true : false;
-
+    
     if (localStorage.getItem('token')) {
       //retorna un "objeto" aunque en consola diga true o false así que mejor lo parseo ¯\_(ツ)_/¯
       //si se modificó el token igual te manda pa tu casa

@@ -10,7 +10,7 @@ export class TableroComponent implements OnInit {
   datoObtenido: any;
   constructor() {
     /*
-    conecta a la url del socket
+    conecta a la url del socket La url del socket es una wea auxilioooooooooojjiiisijfkjrkj
     */
     this.socket.connect()
     const mensaje= this.socket.subscribe('mensaje');
