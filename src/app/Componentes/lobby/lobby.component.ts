@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Ws from '@adonisjs/websocket-client';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Juego } from 'src/app/Modelos/juego';
+import { JuegoService } from 'src/app/Servicios/juego.service';
 
 @Component({
   selector: 'app-lobby',
@@ -10,50 +12,37 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LobbyComponent implements OnInit {
 
-  //inicializo el websocket. hace referencia a la url del servidor (Adonis)
-  ws = Ws('ws://localhost:3333');
-
+  socket= Ws('ws://localhost:3333');
   channel: any;
   id:string;
   room:string='';
+  salas: Array<any>;
 
+  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, private juego_service: JuegoService) {
+    this.socket = this.socket.connect();
+    const lobby = this.socket.subscribe('lobby');
+    
+    lobby.on('open', data => { });
 
-  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient,) { }
+    lobby.on('error', data => { });
+
+    lobby.on('ready', data => { });
+
+    lobby.on('message', (data) => {
+      this.juego_service.getRooms().subscribe(res => {
+        this.salas = res.rooms
+      });
+    });
+   }
 
   ngOnInit() {
-    this.conectarSocket();
-
-
-    // this.username = localStorage.getItem('usuario');
-    // this.id = localStorage.getItem('id_user')
-    // this.iniciarConexion()
-    // this.RecuperarGrupoUsuario()
-    // this.msn = "subibiendo img"
-    // // this.SendMensaje(event);  
-
-    // // this.mensaje=localStorage.getItem('mensaje')
-
-    // this.http.get<any>('http://localhost:3333/users').subscribe(res => {
-    //   console.log(res)
-    //   this.users = res.users
-
-    //   //  this.setUpChat();
-    // });
-
-
+    this.juego_service.getRooms().subscribe( data => {
+      this.salas = data.rooms;
+      // debugger;
+    })
   }
 
-  conectarSocket() {
-    
-    this.ws = new Ws('ws://localhost:3333').connect();
-    this.ws.on('open', data => {
-
-    })
-    this.ws.on('error', data => {
-
-    })
-    
-    this.channel = this.ws.subscribe('chat:Libre')
+  unirse(roomId) {
+    debugger;
   }
-
 }

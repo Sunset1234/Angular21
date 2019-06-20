@@ -3,6 +3,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { JugadorService } from 'src/app/Servicios/jugador.service';
 import { Router } from '@angular/router';
 import Ws from '@adonisjs/websocket-client';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-registro',
@@ -10,9 +11,6 @@ import Ws from '@adonisjs/websocket-client';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
-
-  ws = Ws('ws://localhost:3333');
-
   //reactive forms
   form = new FormGroup({
     nickname: new FormControl('',
@@ -27,9 +25,13 @@ export class RegistroComponent implements OnInit {
     ])
   });
 
-  constructor(private jugador_service: JugadorService, private router: Router) { }
+  socket = Ws('ws://localhost:3333');
+
+  constructor(private jugador_service: JugadorService, private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
+    this.socket = this.socket.connect();
+    this.socket.subscribe('lobby');
   }
 
   crearJugador() {
@@ -40,6 +42,20 @@ export class RegistroComponent implements OnInit {
 
                           this.router.navigate(['/login']);
                         });
+  }
+
+
+  crearJuego() {
+    const hola = {
+      nombre_sala: "LAME GAMES VERSIÓN 3.1"
+    };
+
+    this.http.post('http://localhost:3333/juego', hola).subscribe(data => {
+      
+    })
+
+    const lobby = this.socket.getSubscription('lobby');
+    lobby.emit('message', hola);
   }
 
 }
