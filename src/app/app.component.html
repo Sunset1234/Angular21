@@ -13,11 +13,13 @@
 -->
 
 <H2>LO QUE EL ADMINISTRADOR VERÁ ES:</H2>
-<div>
-  <img src="{{this.img2}}" alt="">
+<div *ngIf="this.img">
+  <h3 style="color: red">{{this.msg}}</h3>
 </div>
 
-<Button></Button>
+<Button (click)='ReparteCartas()'>Repartir Cartas</Button>
+
+<Button>Obtener Cartas</Button>
 
 
 <div class="container-fluid">

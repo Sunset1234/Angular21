@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient,HttpHeaders} from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Carta } from '../Modelos/Carta';
+import Ws from '@adonisjs/websocket-client';
 
 @Injectable({
   providedIn: 'root'
