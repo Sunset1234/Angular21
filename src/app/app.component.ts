@@ -43,17 +43,22 @@ export class AppComponent{
   ReparteCartas(){
 
     this.ws = new Ws('ws://localhost:3333').connect();
-      this.ws.on('open', data => {
+    this.ws.on('open', data => {
+      this.SuscribirsePruebas();
     })
     this.ws.on('error', data => {
     })
-    this.channel = this.ws.subscribe('chat:Libre')
+  }
 
-   /* this.ws.connect()
-    let mensaje = this.ws.subscribe('pruebas')
-    mensaje.on('open',valor=>{
-      console.log(valor+" puta perra madre");
-    })*/
+  SuscribirsePruebas(){
+    //mensaje:1
+    this.channel = this.ws.subscribe('mensaje')
+    
+    this.channel.on('ready',data=>{
+      console.log("Adonis: "+data);
+       //socket.emit("mensaje","hola mundo")
+    });
+
     
   }
 
