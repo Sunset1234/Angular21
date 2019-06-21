@@ -28,8 +28,9 @@
         <td>
           <div>
             <button type="button" class="btn btn-secondary form-control"
-                    style="display: block; margin-bottom: 2%;" (click)="unirse(item.id)"
-                    [ngStyle]="{'display': (item.numero_jugadores >= 4 ? 'none' : 'block')}">
+                    style="display: block; margin-bottom: 2%;" 
+                    (click)="item.numero_jugadores >= 4 ? return : unirse(item.id);"
+                    [ngClass]="{'disabled': item.numero_jugadores >= 4 ? true : false}">
                     Unirse al juego
             </button>
             <button type="button" class="btn btn-secondary form-control">Ver juego</button></div>
