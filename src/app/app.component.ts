@@ -31,7 +31,7 @@ export class AppComponent{
 
     });
   }
-
+  
   
    //inicializo el websocket. hace referencia a la url del servidor (Adonis)
    ws = Ws('ws://localhost:3333');
@@ -52,11 +52,11 @@ export class AppComponent{
 
   SuscribirsePruebas(){
     //mensaje:1
-    this.channel = this.ws.subscribe('mensaje')
-    
-    this.channel.on('ready',data=>{
-      console.log("Adonis: "+data);
-       //socket.emit("mensaje","hola mundo")
+    this.channel = this.ws.subscribe('Cartas')
+
+    this.channel.on('messaje',()=>{
+       //console.log("Adonis: "+data);
+       this.channel.emit("messaje","hola mundo")
     });
 
     
