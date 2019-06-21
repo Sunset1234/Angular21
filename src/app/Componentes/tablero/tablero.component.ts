@@ -8,6 +8,8 @@ import Ws from '@adonisjs/websocket-client';
 export class TableroComponent implements OnInit {
   socket= Ws('ws://localhost:3333');
   datoObtenido: any;
+
+
   constructor() {
     /*
     conecta a la url del socket La url del socket es una wea auxilioooooooooojjiiisijfkjrkj
