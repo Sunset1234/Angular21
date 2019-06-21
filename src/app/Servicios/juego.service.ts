@@ -13,4 +13,14 @@ export class JuegoService {
   getRooms() {
     return this.http.get<any>(this.root + 'juegos');
   }
+
+  enterRoom(roomId: number, jugadorId: number) {
+
+    const entrada = {
+      room: roomId,
+      jugador : jugadorId
+    };
+
+    return this.http.post<any>(this.root + 'entrar', entrada);
+  }
 }

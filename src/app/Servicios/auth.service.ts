@@ -26,6 +26,6 @@ export class AuthService {
       password: password
     }
 
-    return this.http.post(this.root + url, jugador, {responseType: 'text'});
+    return this.http.post<any>(this.root + url, jugador);
   }
 }

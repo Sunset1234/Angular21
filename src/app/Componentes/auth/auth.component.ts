@@ -36,7 +36,8 @@ export class AuthComponent implements OnInit {
   login() {
     this.auth_service.login(this.form.value.nickname, this.form.value.password, 'login')
                      .subscribe(data => {
-                          localStorage.setItem('token', data);
+                          localStorage.setItem('token', data.token);
+                          localStorage.setItem('jugador', data.jugador);
                           this.router.navigate(['/']);
                      });
   }
