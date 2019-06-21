@@ -31,7 +31,7 @@ export class RegistroComponent implements OnInit {
 
   ngOnInit() {
     this.socket = this.socket.connect();
-    this.socket.subscribe('lobby');
+    this.socket.subscribe('lobby:');
   }
 
   crearJugador() {
@@ -51,7 +51,7 @@ export class RegistroComponent implements OnInit {
     };
 
     this.http.post('http://localhost:3333/juego', hola).subscribe(data => {
-      
+
     })
 
     const lobby = this.socket.getSubscription('lobby');

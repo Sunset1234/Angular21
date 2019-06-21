@@ -8,6 +8,9 @@ import { TableroComponent } from './Componentes/tablero/tablero.component';
 import { LobbyComponent } from './Componentes/lobby/lobby.component';
 
 const routes: Routes = [
+
+
+
   {
     path: 'crear',
     component: RegistroComponent,
