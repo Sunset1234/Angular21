@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row ">
   <!--Hay una manera de reutilizar componentes pero neta me dio flojera investigar-->
-  <form name="form" [(formGroup)]="form" (ngSubmit)="login()" class="col-md-4" style="border: 1px solid; margin-top: 2%;">
+  <form name="form" [(formGroup)]="form" (ngSubmit)="login()" class="col-md-4 col-md-offset-4 container center" style="border: 1px solid; margin-top: 2%;">
 
     <div class="alert alert-primary" *ngIf="creado > 0" role="alert">
       <strong>Usuario registrado con éxito. Espere a ser dado de alta por un administrador</strong>
@@ -32,6 +32,9 @@
     </div>
     <div class="form-group">
     <button type="submit" class="btn btn-primary btn-block" [disabled]="!form.valid" style="margin-bottom: 5%;">Iniciar</button>
+    </div>
+    <div>
+      <button (click)='registro()' class="btn btn-success btn-block"  style="margin-bottom: 5%;">¿Eres nuevo? Registrate</button>
     </div>
   </form>
 </div>

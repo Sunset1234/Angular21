@@ -37,8 +37,12 @@ export class AuthComponent implements OnInit {
     this.auth_service.login(this.form.value.nickname, this.form.value.password, 'login')
                      .subscribe(data => {
                           localStorage.setItem('token', data);
-                          this.router.navigate(['/']);
+                          this.router.navigate(['/lobby']);
                      });
+  }
+
+  registro(){
+    this.router.navigate(['/crear']);
   }
 
 }
