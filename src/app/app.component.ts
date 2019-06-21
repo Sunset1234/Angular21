@@ -15,51 +15,47 @@ export class AppComponent{
 
   title = 'BlackJack';
 
+
+   //inicializo el websocket. hace referencia a la url del servidor (Adonis)
+   ws = Ws('ws://localhost:3333');
+   id:string;
+   room:string='';
+
   constructor(private _StorageService:StorageServiceService){
-    this.getImage();
+
+    this.getImage()
+
+    this.ws = this.ws.connect()
+    this.ws.on('open', data => {
+      this.SuscribirsePruebas();
+    })
+    this.ws.on('error', data => {
+    })
+
   }
+  
+  SuscribirsePruebas(){
+    //mensaje:1
+    const carta = this.ws.subscribe('Cartas')
+
+    carta.emit('messaje','Hola Mundo');
+    
+    carta.on('messaje',data=>{
+      console.log(data)
+    });
+
+  }
+
 
   img:any;
   msg:string;
   getImage(){
     this._StorageService.GetCartas().subscribe(resultado => {
       this.img=resultado;
-      
         if(this.img){
           this.msg="Ya hay cartas";
         }
-
     });
-  }
-
-  
-   //inicializo el websocket. hace referencia a la url del servidor (Adonis)
-   ws = Ws('ws://localhost:3333');
-
-   channel: any;
-   id:string;
-   room:string='';
-
-  ReparteCartas(){
-
-    this.ws = new Ws('ws://localhost:3333').connect();
-    this.ws.on('open', data => {
-      this.SuscribirsePruebas();
-    })
-    this.ws.on('error', data => {
-    })
-  }
-
-  SuscribirsePruebas(){
-    //mensaje:1
-    this.channel = this.ws.subscribe('mensaje')
-    
-    this.channel.on('ready',data=>{
-      console.log("Adonis: "+data);
-       //socket.emit("mensaje","hola mundo")
-    });
-
-    
   }
 
 }

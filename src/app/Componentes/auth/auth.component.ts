@@ -38,8 +38,12 @@ export class AuthComponent implements OnInit {
                      .subscribe(data => {
                           localStorage.setItem('token', data.token);
                           localStorage.setItem('jugador', data.jugador);
-                          this.router.navigate(['/']);
+                          this.router.navigate(['/lobby']);
                      });
+  }
+
+  registro(){
+    this.router.navigate(['/crear']);
   }
 
 }
