@@ -21,7 +21,7 @@ export class LobbyComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private juego_service: JuegoService) {
     //se abre la conexión y la subscripción al canal
     this.socket = this.socket.connect();
-    this.channel = this.socket.subscribe('lobby');
+    this.channel = this.socket.subscribe('lobby'); 
     
     this.channel.on('open', data => { });
 
@@ -37,11 +37,19 @@ export class LobbyComponent implements OnInit {
     });
    }
 
+
+  tipo:any;
   ngOnInit() {
     this.juego_service.getRooms().subscribe( data => {
       this.salas = data.rooms;
-      // debugger;
+
+     
+    });
+    this.juego_service.ConsultaTipo(localStorage.getItem('jugador')).subscribe(data=>{
+      this.tipo = data;
+      console.log(this.tipo);
     })
+
   }
 
   unirse(roomId: number) {

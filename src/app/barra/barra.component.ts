@@ -31,6 +31,7 @@ export class BarraComponent implements OnInit {
        
        console.log(element);
       localStorage.removeItem(element);
+      
     });
     this.router.navigate(['/']);
   }

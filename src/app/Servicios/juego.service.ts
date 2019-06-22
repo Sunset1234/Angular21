@@ -23,4 +23,11 @@ export class JuegoService {
 
     return this.http.post<any>(this.root + 'entrar', entrada);
   }
+
+  ConsultaTipo(id:String){
+    let jugador = {
+      id : id
+    }
+    return this.http.post<any>(this.root+'tipo/'+id,jugador);
+}
 }
