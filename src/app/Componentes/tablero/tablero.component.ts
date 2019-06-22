@@ -13,7 +13,7 @@ export class TableroComponent implements OnInit {
   canal: any;
   room: number;
   jugador: string;
-  
+
   constructor(private juego_service: JuegoService) {
     //pendiente: ponerle un guard a /tablero
     this.room = parseInt(localStorage.getItem('juego'));
@@ -22,13 +22,13 @@ export class TableroComponent implements OnInit {
     this.canal = this.socket.subscribe('juego:' + this.room);
 
     this.canal.on('error', data => {
-
+      console.log('error')
     })
 
     this.canal.on('entrar', data => {
       this.jugador = data;
       setTimeout(() => {
-        
+
       }, 1500);
     })
   }
