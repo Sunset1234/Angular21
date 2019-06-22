@@ -36,7 +36,6 @@ export class StorageServiceService {
 
     //CUANDO SE LLAME AL MESSAJE
     socket.on('enviar',(messaje)=>{
-      console.log('llegó')
       this.ChangeMessaje(messaje);
     })
   }
