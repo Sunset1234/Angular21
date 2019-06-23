@@ -38,7 +38,7 @@ export class AuthComponent implements OnInit {
                      .subscribe(data => {
                           localStorage.setItem('token', data.token);
                           localStorage.setItem('jugador', data.jugador);
-                          console.log(data.tipo);
+                          //console.log(data.tipo);
                           this.router.navigate(['/lobby']);
                      });
   }

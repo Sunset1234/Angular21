@@ -24,10 +24,17 @@ export class JuegoService {
     return this.http.post<any>(this.root + 'entrar', entrada);
   }
 
+  dato:any;
+  tipoAd:any;
   ConsultaTipo(id:String){
     let jugador = {
       id : id
     }
-    return this.http.post<any>(this.root+'tipo/'+id,jugador);
-}
+    console.log("ojo aquí")
+    this.dato=this.http.post<any>(this.root+'tipo/'+id,jugador).forEach(item=>{
+      this.tipoAd=item[0].tipo;
+    })
+    console.log(this.tipoAd)
+    return this.tipoAd;
+  }
 }
