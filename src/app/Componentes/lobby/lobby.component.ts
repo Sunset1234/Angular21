@@ -34,21 +34,10 @@ export class LobbyComponent implements OnInit {
   tipo:any;
   checadmin:boolean;
   ngOnInit() {
-<<<<<<< HEAD
     this.juego_service.getRooms().subscribe( data => {
       this.salas = data.rooms;
     });
 
-=======
-    this.juego_service.getRooms().subscribe( res => {
-      this.salas = res.rooms;
-    });
-
-    this.juego_service.ConsultaTipo(localStorage.getItem('jugador')).subscribe(data=>{
-      this.tipo = data;
-      console.log(this.tipo);
-    })
->>>>>>> 79d5048b3e0f299201d363d2c93a9a65e41e4978
   }
 
   conecta(){
