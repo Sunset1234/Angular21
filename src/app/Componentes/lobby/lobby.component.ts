@@ -37,7 +37,6 @@ export class LobbyComponent implements OnInit {
     this.juego_service.getRooms().subscribe( data => {
       this.salas = data.rooms;
     });
-
   }
 
   conecta(){

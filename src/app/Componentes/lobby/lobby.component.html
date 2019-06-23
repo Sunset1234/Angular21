@@ -29,7 +29,7 @@
                 </td>
                 <td>
                   <div>
-                    <div *ngIf='tipo'>
+                    <div>
                         <button type="button" class="btn btn-secondary form-control"
                         style="display: block; margin-bottom: 2%;" 
                         (click)="item.numero_jugadores >= 4 ? return : unirse(item.id);"
@@ -37,7 +37,7 @@
                         Unirse al juego
                         </button>
                     </div>
-                    <div *ngIf='!tipo'>
+                    <div>
                       <button type="button" class="btn btn-secondary form-control">Ver juego</button>
                     </div>
                     
