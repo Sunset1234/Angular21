@@ -45,17 +45,6 @@ export class RegistroComponent implements OnInit {
   }
 
 
-  crearJuego() {
-    const hola = {
-      nombre_sala: "LAME GAMES VERSIÓN 3.1"
-    };
-
-    this.http.post('http://localhost:3333/juego', hola).subscribe(data => {
-      
-    })
-
-    const lobby = this.socket.getSubscription('lobby');
-    lobby.emit('message', hola);
-  }
+  
 
 }

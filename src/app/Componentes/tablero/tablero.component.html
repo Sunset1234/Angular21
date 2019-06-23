@@ -1,8 +1,20 @@
 <div class="row">
   <div class="col-12">
+    <!-- Mensaje para los OTROS jugadores cuando se acava de unir alguien -->
     <h2 id="msg" [ngClass]="{'msj': true}" class="msj">{{jugador}}</h2>
+    <!--
+      Contador y botón de administrador para iniciar juego. 
+      TODO: CHECAR CON GUARD O ALGO QUE TENG PERMISO DE ADMIN Y QUE SÓLO SEA VISIBLE POR ESTE
+    -->
+    <h2 id="counter">Jugadores: {{counter}}</h2>
+    <button class="btn btn-large btn-primary"
+            >
+            INICIAR JUEGO 
+    </button>
     <img src="https://i.imgur.com/VBaXzjM.png" class="img-fluid" alt="">
   </div>
 </div>
 
-
+<!-- 
+[ngClass]="{'disabled': count > 3 ? false : true}"
+(click)="count > 3 ? startGame() : return;" -->

@@ -24,7 +24,8 @@ const routes: Routes = [
   },
   {
     path: 'tablero',
-    component:TableroComponent
+    component:TableroComponent,
+    // canActivate: [RoomGuard]
   },
   {
     path: 'lobby',
