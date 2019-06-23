@@ -1,48 +1,59 @@
-<div class="col-md-6 offset-md-3">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Sala : Esperando jugadores...</th>
-        <th>Jugadores</th>
-        <th>Acción</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- <tr>
-        <td scope="row">666</td>
-        <td>Lame games (3/4)</td>
-        <td>El diez, Octa, Emma</td>
-        <td rowspan="2">
-          <div>
-            <button type="button" class="btn btn-secondary form-control" style="display: block; margin-bottom: 2%;">Unirse al juego</button>
-            <button type="button" class="btn btn-secondary form-control">Ver juego</button></div>
-        </td>
-      </tr> -->
-      <tr *ngFor="let item of salas">
-        <td scope="row">{{item.id}}</td>
-        <td>{{item.nombre_sala}} ({{item.numero_jugadores}} / 4) </td>
-        <td>
-          <p *ngFor="let player of item.jugadores; let i = index"><b>{{i + 1}} {{player.nickname}}</b></p>
-        </td>
-        <td>
-          <div>
-            <div *ngIf='tipo'>
-                <button type="button" class="btn btn-secondary form-control"
-                style="display: block; margin-bottom: 2%;" 
-                (click)="item.numero_jugadores >= 4 ? return : unirse(item.id);"
-                [ngClass]="{'disabled': item.numero_jugadores >= 4 ? true : false}">
-                Unirse al juego
-                </button>
-            </div>
-            <div *ngIf='!tipo'>
-              <button type="button" class="btn btn-secondary form-control">Ver juego</button>
-            </div>
-            
-           
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div style="overflow:hidden; width:100%" >
+  <div  style="float:left; width:65%;margin-right: -100px">
+      <div class="col-md-10 offset-md-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Sala : Esperando jugadores...</th>
+                <th>Jugadores</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr>
+                <td scope="row">666</td>
+                <td>Lame games (3/4)</td>
+                <td>El diez, Octa, Emma</td>
+                <td rowspan="2">
+                  <div>
+                    <button type="button" class="btn btn-secondary form-control" style="display: block; margin-bottom: 2%;">Unirse al juego</button>
+                    <button type="button" class="btn btn-secondary form-control">Ver juego</button></div>
+                </td>
+              </tr> -->
+              <tr *ngFor="let item of salas">
+                <td scope="row">{{item.id}}</td>
+                <td>{{item.nombre_sala}} ({{item.numero_jugadores}} / 4) </td>
+                <td>
+                  <p *ngFor="let player of item.jugadores; let i = index"><b>{{i + 1}} {{player.nickname}}</b></p>
+                </td>
+                <td>
+                  <div>
+                    <div *ngIf='tipo'>
+                        <button type="button" class="btn btn-secondary form-control"
+                        style="display: block; margin-bottom: 2%;" 
+                        (click)="item.numero_jugadores >= 4 ? return : unirse(item.id);"
+                        [ngClass]="{'disabled': item.numero_jugadores >= 4 ? true : false}">
+                        Unirse al juego
+                        </button>
+                    </div>
+                    <div *ngIf='!tipo'>
+                      <button type="button" class="btn btn-secondary form-control">Ver juego</button>
+                    </div>
+                    
+                   
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  </div>
+  
+ <div  style="float:left;width:35%;margin-top: 10px;">
+<app-crear-sala></app-crear-sala>
+ </div>
+   
+  
 </div>
+
