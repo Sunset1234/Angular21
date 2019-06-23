@@ -28,4 +28,6 @@ export class AuthService {
 
     return this.http.post<any>(this.root + url, jugador);
   }
+
+  
 }

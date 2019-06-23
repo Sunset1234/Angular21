@@ -12,6 +12,8 @@ import { BarraComponent } from './barra/barra.component';
 import {HttpClient,HttpHeaders} from '@angular/common/http';
 import { TableroComponent } from './Componentes/tablero/tablero.component';
 import { LobbyComponent } from './Componentes/lobby/lobby.component';
+import { CrearSalaComponent } from './Componentes/crear-sala/crear-sala.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { LobbyComponent } from './Componentes/lobby/lobby.component';
     RegistroComponent,
     BarraComponent,
     TableroComponent,
-    LobbyComponent
+    LobbyComponent,
+    CrearSalaComponent
   ],
   imports: [
     BrowserModule,

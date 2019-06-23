@@ -1,0 +1,26 @@
+<div class="row">
+  <!---->
+  <div class="col-12">
+  <form name="form" [(formGroup)]="form" (ngSubmit)="crearsala()" class="col-md-8 col-md-offset-4 container center" style="border: 1px solid; margin-top: 2%;">
+    <div class="form-group" style="margin-top: 5%;">
+      <label for="">Nombre de la sala</label>
+      <input type="text" class="form-control" placeholder="Ingresa el nombre de la sala"
+             formControlName="nombre_sala"
+             [ngClass]="{'is-invalid': form.get('nombre_sala').touched && form.get('nombre_sala').invalid, 'is-valid': form.get('nombre_sala').touched && form.get('nombre_sala').valid}">
+      <div class="invalid-feedback">
+        <ul>
+          <li>El nombre de la sala es obligatorio.</li>
+          <li>Mínimo debe contener 2 caracteres.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="form-group">
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="!form.valid" style="margin-bottom: 5%;">Crear sala</button>
+    </div>
+  </form>
+  </div>
+</div>
+
+
+
+

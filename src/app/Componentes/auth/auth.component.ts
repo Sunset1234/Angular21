@@ -39,6 +39,7 @@ export class AuthComponent implements OnInit {
                           localStorage.setItem('token', data.token);
                           localStorage.setItem('jugador', data.jugador);
                           localStorage.setItem('nick', data.nick);
+                          console.log(data.tipo);
                           this.router.navigate(['/lobby']);
                      });
   }
