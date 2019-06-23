@@ -34,10 +34,17 @@ export class JuegoService {
       return this.http.get<any>('http://127.0.0.1:3333/' + 'verificarRoom', {headers: headers});
   }
 
-  ConsultaTipo(id:String) { 
+  dato:any;
+  tipoAd:any;
+  ConsultaTipo(id:String){
     let jugador = {
       id : id
     }
-    return this.http.post<any>(this.root+'tipo/'+id,jugador);
+    console.log("ojo aquí")
+    this.dato=this.http.post<any>(this.root+'tipo/'+id,jugador).forEach(item=>{
+      this.tipoAd=item[0].tipo;
+    })
+    console.log(this.tipoAd)
+    return this.tipoAd;
   }
 }
