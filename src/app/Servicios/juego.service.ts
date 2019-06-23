@@ -40,11 +40,23 @@ export class JuegoService {
     let jugador = {
       id : id
     }
+
     console.log("ojo aquí")
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    this.dato=this.http.post(this.root+'tipo/'+id,jugador,{headers:headers}).forEach(item=>{
+      this.tipoAd=item[0].tipo;
+    })
+
+    console.log(this.tipoAd)
+    return this.tipoAd;
+
+
+    /*console.log("ojo aquí")
+
     this.dato=this.http.post<any>(this.root+'tipo/'+id,jugador).forEach(item=>{
       this.tipoAd=item[0].tipo;
     })
     console.log(this.tipoAd)
-    return this.tipoAd;
+    return this.tipoAd;*/
   }
 }
