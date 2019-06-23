@@ -27,18 +27,27 @@ export class LobbyComponent implements OnInit {
         this.salas = res.rooms
       });
     });
+
+    this.conecta();
    }
 
   tipo:any;
+  checadmin:boolean;
   ngOnInit() {
-    this.juego_service.getRooms().subscribe( res => {
-      this.salas = res.rooms;
+    this.juego_service.getRooms().subscribe( data => {
+      this.salas = data.rooms;
     });
+  }
 
-    this.juego_service.ConsultaTipo(localStorage.getItem('jugador')).subscribe(data=>{
-      this.tipo = data;
-      console.log(this.tipo);
-    })
+  conecta(){
+    this.tipo=this.juego_service.ConsultaTipo(localStorage.getItem('jugador'));
+    if(this.tipo==2){
+      console.log("falso pendejo")
+      this.checadmin=false;
+    }else if(this.tipo==1){
+      console.log("verdadero pendejo")
+      this.checadmin=true;
+    }
   }
 
   unirse(roomId: number) {

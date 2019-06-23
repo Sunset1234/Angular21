@@ -17,8 +17,17 @@ export class TableroComponent implements OnInit, OnDestroy {
   room: number;
 
   jugador: string;
+  jugador_id: number;
   counter: number = 0;
+
+  //flags para saber el estado del juego
   started: boolean = false;
+  ended: boolean = false;
+
+  jugadores: Array<any> = [];
+  //arreglo en el cual se asignarán los turnos
+  turnos: Array<number> = [1, 2, 3, 4];
+
   
   constructor(private juego_service: JuegoService, private router: Router) {
     //se abre la conexión al canal y tópic
@@ -32,19 +41,35 @@ export class TableroComponent implements OnInit, OnDestroy {
       alert(err);
     })
 
+    /*
+      Evento entrar.
+      Cuando entre un jugador se le asigna un turno, y al mismo se le da la bienvenida
+      por consecuente, se trae el contador actualizado y se mete al arreglo para manejar
+      el estado del juego
+    */
     this.channel.on('entrar', (data) => {
+
+      //asignación de turnos
+      var posicion = Math.floor(Math.random() * this.turnos.length);
+      var rn = this.turnos.splice(posicion, 1);
+
       this.jugador = data.msj;
       this.counter = data.count;
+      this.jugadores.push({
+        id: data.id,
+        turno: rn[0]
+      });
     });
-
+    //metodo que se ejecuta cuando carga el componente para validar
     this.validateRoom();
   }
 
+  //método que valida que la persona que entró al room pertenece al juego
   validateRoom() {
     this.juego_service.checkRoom(parseInt(localStorage.getItem('jugador')), this.room).subscribe(res => {
       if (res) {
         const room = this.socket.getSubscription('juego:'+ this.room);
-        room.emit('entrar', { jugador: localStorage.getItem('nick'), room: this.room });
+        room.emit('entrar', { jugador: localStorage.getItem('nick'), room: this.room, id: localStorage.getItem('jugador')});
         // room.emit('count', this.room);
       } else {
         this.router.navigate(['lobby'])
@@ -60,8 +85,12 @@ export class TableroComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    localStorage.removeItem('juego');
-    this.channel.close();
+
+    if (!this.ended) {
+      //si el juego no ha terminado, y abandona, consideramos la partida como perdida.
+      localStorage.removeItem('juego');
+    }
+    // this.channel.close();
   }
 
 }

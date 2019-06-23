@@ -9,15 +9,14 @@
       <li>
         <a class="nav-link" routerLink="/tablero">Tablero prueba</a>
       </li>
-      <li>
-        <a class="nav-link" (click)="logout()">Cerrar Sesión</a>
+    </ul>
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <button (click)="logout()" class="btn btn-outline-danger">Cerrar Sesión</button>
+      </li>
+      <li class="nav-item">
+        <button  routerLink="/login" class="btn btn-outline-success nav-item">Iniciar Sesión</button>
       </li>
     </ul>
-    <div class="form-inline my-2 my-lg-0">
-      
-      <button  routerLink="/login" class="btn btn-outline-success my-2 my-sm-0">Iniciar Sesión</button>
-    
-    </div>
-
   </div>
 </nav>
