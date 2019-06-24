@@ -41,6 +41,9 @@ export class AuthComponent implements OnInit {
                           localStorage.setItem('nick', data.nick);
                           console.log(data.tipo);
                           this.router.navigate(['/lobby']);
+                     },
+                     error=>{
+                          alert('Correo o contraseña invalidos');
                      });
   }
 
