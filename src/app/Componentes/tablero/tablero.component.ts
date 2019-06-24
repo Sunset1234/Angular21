@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import Ws from '@adonisjs/websocket-client';
 import { JuegoService } from 'src/app/Servicios/juego.service';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./tablero.component.css']
 })
 
-export class TableroComponent implements OnInit, OnDestroy {
+export class TableroComponent implements OnInit {
   
   //socket
   socket = Ws('ws://localhost:3333');
@@ -82,19 +82,30 @@ export class TableroComponent implements OnInit, OnDestroy {
     // window.location.replace('https://www.youtube.com/watch?v=yzWAANQwnYQ');
   }
 
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
+  // @HostListener('window:unload', [ '$event' ])
+  // unloadHandler(event) {
 
-    if (!this.ended) {
-      //si el juego no ha terminado, y abandona, consideramos la partida como perdida.
-      localStorage.removeItem('juego');
-    }
-    // this.channel.close();
-  }
-
+  //   localStorage.removeItem('juego');
+    
+  //   if (!this.ended) {
+  //     //si el juego no ha terminado, y abandona, consideramos la partida como perdida.
+  //     this.juego_service.eliminarJugador(parseInt(localStorage.getItem('jugador')), this.room)
+  //         .subscribe((res) => {
+  //           console.log("ECHADO POR PARGUELA");
+  //           // localStorage.removeItem('juego');
+  //         });
+  //   }
+  //   // this.channel.close();
+  // }
 }
 /**
  * https://imgur.com/bUgJqBI tabla en blanco
  * https://i.imgur.com/VBaXzjM.png con letras
 */
+
+window.addEventListener('beforeunload', (event) => {
+  // Cancel the event as stated by the standard.
+  event.preventDefault();
+  // Chrome requires returnValue to be set.
+  event.returnValue = '';
+});
