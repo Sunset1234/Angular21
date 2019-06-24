@@ -24,13 +24,13 @@ export class AuthComponent implements OnInit {
     ])
   });
 
-  creado: number = 0;
+  //creado: number = 0;
 
   constructor(private auth_service: AuthService, private router: Router) { }
 
   ngOnInit() {
     //hay que validar esto o quitarlo alv
-    this.creado = localStorage.length > 0 ? parseInt(localStorage.getItem('recien')) : 0;
+    //this.creado = localStorage.length > 0 ? parseInt(localStorage.getItem('recien')) : 0;
   }
 
   login() {
