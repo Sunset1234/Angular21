@@ -58,7 +58,7 @@ export class TableroComponent implements OnInit {
       //asignación de turnos
       var posicion = Math.floor(Math.random() * this.turnos.length);
       var rn = this.turnos.splice(posicion, 1);
-      debugger;
+
       this.jugador = data.msj;
       this.counter = data.count;
       this.jugadores.push({
@@ -148,9 +148,9 @@ tipo:any;
  * https://i.imgur.com/VBaXzjM.png con letras
 */
 
-window.addEventListener('beforeunload', (event) => {
-  // Cancel the event as stated by the standard.
-  event.preventDefault();
-  // Chrome requires returnValue to be set.
-  event.returnValue = '';
-});
+// window.addEventListener('beforeunload', (event) => {
+//   // Cancel the event as stated by the standard.
+//   event.preventDefault();
+//   // Chrome requires returnValue to be set.
+//   event.returnValue = '';
+// });
