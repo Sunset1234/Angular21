@@ -38,7 +38,7 @@
                         </button>
                     </div>
                     <div *ngIf="this.checadmin">
-                      <button type="button" class="btn btn-secondary form-control">Ver juego</button>
+                      <button type="button" (click)="veradmin(item.id)" class="btn btn-secondary form-control">Ver juego</button>
                     </div>             
                   </div>
                 </td>
