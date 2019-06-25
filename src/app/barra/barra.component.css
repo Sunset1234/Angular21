@@ -1,0 +1,21 @@
+#logo{
+    width:25px;
+    height: 25px;
+    margin-bottom:8px;
+    margin-right: 5px;
+}
+
+#txtlame{
+    float: right;
+    color: #ffffff;
+    font-family: 'Raleway', sans-serif;
+}
+
+li{
+    font-family: 'Raleway', sans-serif;
+}
+
+#barra{
+    background-color: #656565;
+    background: url('https://cdn.pixabay.com/photo/2014/05/24/00/07/woven-cloth-352481_960_720.jpg');
+}

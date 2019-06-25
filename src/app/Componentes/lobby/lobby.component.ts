@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Ws from '@adonisjs/websocket-client';
 import { Router } from '@angular/router';
 import { JuegoService } from 'src/app/Servicios/juego.service';
+import { User } from 'src/app/Modelos/user';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-lobby',
@@ -28,26 +30,27 @@ export class LobbyComponent implements OnInit {
       });
     });
 
-    this.conecta();
+    this.GetTipo();
    }
 
-  tipo:any;
-  checadmin:boolean;
   ngOnInit() {
     this.juego_service.getRooms().subscribe( data => {
       this.salas = data.rooms;
     });
   }
 
-  conecta(){
-    this.tipo=this.juego_service.ConsultaTipo(localStorage.getItem('jugador'));
-    if(this.tipo==2){
-      console.log("falso pendejo")
-      this.checadmin=false;
-    }else if(this.tipo==1){
-      console.log("verdadero pendejo")
-      this.checadmin=true;
-    }
+  
+  tipo:number;
+  checadmin:boolean
+  GetTipo(){
+    this.juego_service.ConsultaTipo(localStorage.getItem('jugador')).then(item=>{
+      this.tipo=item['es_admin']
+      if(this.tipo==2){
+        this.checadmin=false;
+      }else if(this.tipo==1){
+        this.checadmin=true;
+      }
+    });
   }
 
   unirse(roomId: number) {
