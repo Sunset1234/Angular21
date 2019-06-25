@@ -30,8 +30,22 @@ h2{
     font-weight: 700;
     line-height: 1.1em;
     margin-top: 0;
+}
+
+#txtlame{
     animation-duration: 1s;
     animation-name:botup;
+}
+
+@keyframes botup{
+    from{
+        margin-top:100%;
+        width: 300%
+    }
+    to{
+        margin-top: 0;
+        width:100%;
+    }
 }
 
 .intro-content h2 {
@@ -62,26 +76,35 @@ h2{
     box-shadow: 1px black,1px black, 1px black, 1px black;
 }
 
-#content p{
-    background: url('https://www.designbolts.com/wp-content/uploads/2013/02/crafted-paper-pattern-Grey-Seamless-Pattern-For-Website-Background.jpg');
-}
-
 footer{
     background:url('https://cdn.pixabay.com/photo/2014/05/24/00/07/woven-cloth-352481_960_720.jpg'); 
-}
-
-@keyframes botup{
-    from{
-        margin-top:100%;
-        width: 300%
-    }
-    to{
-        margin-top: 0;
-        width:100%;
-    }
 }
 
 #txtfooter{
     font-family: 'Raleway', sans-serif;
     color: white;
 }
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+div {
+    display: block;
+}
+
+@media (min-width: 768px)
+.col-md-4 {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+
