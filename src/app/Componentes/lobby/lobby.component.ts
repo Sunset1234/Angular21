@@ -53,7 +53,6 @@ export class LobbyComponent implements OnInit {
   unirse(roomId: number) {
     //solamente aquí se registrará, NO en el componente; no podrá colarse a salas.
     const jugadorId = parseInt(localStorage.getItem('jugador'));
-
     this.juego_service.enterRoom(roomId, jugadorId).subscribe(res => {
       if (res.acesso) {
         localStorage.setItem('juego', roomId.toString());
@@ -64,6 +63,18 @@ export class LobbyComponent implements OnInit {
       } else {
         alert("SALA INACCESIBLE");
       }
+    });
+  }
+
+  veradmin(roomId: number){
+   
+    const adminId = parseInt(localStorage.getItem('jugador'));
+    //console.log("mi admins "+adminId);
+    this.juego_service.enterRoom(roomId, adminId).subscribe(res => {
+        localStorage.setItem('juego', roomId.toString());
+        //se cierra el canal para que no se escuchen más eventos en el lobby si entró a una sala
+        this.channel.close();
+        this.router.navigate(['tablero']);
     });
   }
 }
