@@ -1,38 +1,66 @@
-<div class="row ">
-  <!--Hay una manera de reutilizar componentes pero neta me dio flojera investigar-->
-  <form name="form" [(formGroup)]="form" (ngSubmit)="login()" class="col-md-4 col-md-offset-4 container center" style="border: 1px solid; margin-top: 2%;">
-    <div class="form-group" style="margin-top: 5%;">
-      <label for="">Nickname</label>
-      <input type="text" class="form-control" placeholder="Ingrese su nickname"
-             formControlName="nickname"
-             [ngClass]="{'is-invalid': form.get('nickname').touched && form.get('nickname').invalid, 'is-valid': form.get('nickname').touched && form.get('nickname').valid}">
-      <div class="invalid-feedback">
-        <ul>
-          <li>El nickname es obligatorio.</li>
-          <li>Mínimo debe contener 2 caracteres.</li>
-        </ul>
+
+<div id="content">
+    <div class="row">
+      <div class="col-12">
+          <div class="offset-4 col-md-4" style="margin-top:50px; margin-bottom:50px;">
+            <div class="service-box">
+              <div class="service-content">
+                  <form name="form" [(formGroup)]="form" (ngSubmit)="login()">
+                      <div class="text-center">
+                          <h4>Iniciar Sesión</h4>
+                        </div>
+                    <div class="form-group" style="margin-top: 5%;">
+                      <label for="">Nickname</label>
+                      <input type="text" class="form-control" placeholder="Ingrese su nickname"
+                              formControlName="nickname"
+                              [ngClass]="{'is-invalid': form.get('nickname').touched && form.get('nickname').invalid, 'is-valid': form.get('nickname').touched && form.get('nickname').valid}">
+                      <div class="invalid-feedback">
+                        <ul>
+                          <li>El nickname es obligatorio.</li>
+                          <li>Mínimo debe contener 2 caracteres.</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Contraseña</label>
+                      <input type="password" class="form-control" placeholder="Ingrese su contraseña"
+                              formControlName="password"
+                              [ngClass]="{'is-invalid': form.get('password').touched && form.get('password').invalid, 'is-valid': form.get('password').touched && form.get('password').valid}">
+                      <div class="invalid-feedback">
+                        <ul>
+                          <li>La contraseña es obligatorio.</li>
+                          <li>Mínimo debe contener 6 caracteres.</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block" [disabled]="!form.valid" style="margin-bottom: 5%;">Iniciar</button>
+                    </div>
+                    <div>
+                      <button (click)='registro()' class="btn btn-success btn-block"  style="margin-bottom: 5%;">¿Eres nuevo? Registrate</button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+          </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="">Contraseña</label>
-      <input type="password" class="form-control" placeholder="Ingrese su contraseña"
-             formControlName="password"
-             [ngClass]="{'is-invalid': form.get('password').touched && form.get('password').invalid, 'is-valid': form.get('password').touched && form.get('password').valid}">
-      <div class="invalid-feedback">
-        <ul>
-          <li>La contraseña es obligatorio.</li>
-          <li>Mínimo debe contener 6 caracteres.</li>
-        </ul>
+  </div>
+
+  <footer style="margin-top:38px;">
+
+      <!-- Copyright -->
+      <div id="txtfooter" class="footer-copyright text-center py-3">© 2018 Copyright:
+        <a href="#"> LAME UTT</a>
       </div>
-    </div>
-    <div class="form-group">
-    <button type="submit" class="btn btn-primary btn-block" [disabled]="!form.valid" style="margin-bottom: 5%;">Iniciar</button>
-    </div>
-    <div>
-      <button (click)='registro()' class="btn btn-success btn-block"  style="margin-bottom: 5%;">¿Eres nuevo? Registrate</button>
-    </div>
-  </form>
+      <!-- Copyright -->
+    
+    </footer>
+
+
 </div>
+
+
+
   
  
 

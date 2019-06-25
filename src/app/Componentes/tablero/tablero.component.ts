@@ -30,16 +30,17 @@ export class TableroComponent implements OnInit {
 
   jugadores: Array<any> = [];
   //arreglo en el cual se asignarán los turnos
-  turnos: Array<number> = [1, 2, 3, 4];
+  turnos: Array<number> = [1, 2];
 
   urlOculta: string = 'https://i.ytimg.com/vi/H4fKfz5rcx8/maxresdefault.jpg';
   locals: any = localStorage;
-
+  id_jugador = localStorage.jugador;
   constructor(private juego_service: JuegoService, private router: Router) {
     //se abre la conexión al canal y tópic
     this.room = parseInt(localStorage.getItem('juego'));
     this.socket = this.socket.connect();
     this.channel = this.socket.subscribe('juego:' + this.room);
+
   }
 
   ngOnInit() {
@@ -83,15 +84,30 @@ export class TableroComponent implements OnInit {
 
     //para repartir alv
     this.channel.on('pedir', (data) => {
-      console.log(data)
+
       this.jugadores.forEach(jugador => {
-        if( jugador.turno = this.turno_actual){
+        if(  jugador.su_turno){
 
             jugador.cartas.push([data.obtenida]);
             console.log(jugador);
         }
       });
 
+    });
+    //turnos globales
+    this.channel.on('pasarturno',turno=>{
+      this.jugadores.forEach(jugador => {
+        if(jugador.su_turno == turno){
+          console.log('es mi turno'+ jugador.turno)
+          this.jugadores[jugador.turno].su_turno = true
+          jugador.su_turno = false;
+        }else{
+          console.log('no es mi turno')
+          jugador.su_turno = false;
+        }
+      });
+
+    console.log('Sigue el jugador número:' + turno)
     });
   }
 tipo:any;
@@ -122,11 +138,16 @@ tipo:any;
   }
 
   //metodo para pedir una carta
-  pedirUna(){
-    this.channel.emit('pedir',this.jugadores);
+  pedirUna(valor,turno){
+    console.log(valor);
+    console.log(' valor'+ turno);
+    this.channel.emit('pedir',{valor,turno});
   }
 
-
+  //pasar turno para que el otro jugador siga
+  acabar(valor){
+    this.channel.emit('pasarturno', valor);
+  }
   // @HostListener('window:unload', [ '$event' ])
   // unloadHandler(event) {
 
