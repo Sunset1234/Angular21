@@ -95,14 +95,19 @@ export class TableroComponent implements OnInit {
       this.jugadores = data.jugadores;
       console.log(this.jugadores);
       alert(data.msj);
+      $(document).ready(function(){
+        console.log('entré')
+        $('#1').appendTo('#jugador1')
+        $('#3').appendTo('#jugador2')
+        $('#2').appendTo('#jugador3')
+        $('#4').appendTo('#jugador4')
+    });
     });
 
     //metodo que se ejecuta cuando carga el componente para validar
     this.validateRoom();
     //acomodar las cartas
-    $(document).ready(function(){
 
-    });
 
     //para repartir alv
     this.channel.on('pedir', (data) => {
@@ -160,10 +165,19 @@ tipo:any;
   }
 
   //metodo para pedir una carta
-  pedirUna(valor,turno){
+  pedirUna(valor, turno) {
     console.log(valor);
-    console.log(' valor'+ turno);
-    this.channel.emit('pedir',{valor,turno});
+    console.log(' valor' + turno);
+    this.jugadores.forEach(jugador => {
+      if(jugador.su_turno) {
+        if(jugador.cartas.length <= 4) {
+          this.channel.emit('pedir', { valor, turno});
+        }else{
+          alert('Límite de cartas alcanzadas: máximo 5 cartas')
+        }
+      }
+    })
+
   }
 
   //pasar turno para que el otro jugador siga
