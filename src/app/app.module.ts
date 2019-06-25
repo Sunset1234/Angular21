@@ -13,6 +13,7 @@ import {HttpClient,HttpHeaders} from '@angular/common/http';
 import { TableroComponent } from './Componentes/tablero/tablero.component';
 import { LobbyComponent } from './Componentes/lobby/lobby.component';
 import { CrearSalaComponent } from './Componentes/crear-sala/crear-sala.component';
+import { InicioComponent } from './Componentes/inicio/inicio.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { CrearSalaComponent } from './Componentes/crear-sala/crear-sala.componen
     BarraComponent,
     TableroComponent,
     LobbyComponent,
-    CrearSalaComponent
+    CrearSalaComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,
