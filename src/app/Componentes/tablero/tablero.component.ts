@@ -56,7 +56,7 @@ export class TableroComponent implements OnInit {
       this.jugador = data.msj;
       this.counter = data.count;
       this.jugadores.push({
-        id: data.id,
+        id: parseInt(data.id),
         turno: rn[0]
       });
     });
@@ -78,7 +78,8 @@ export class TableroComponent implements OnInit {
   }
 
   startGame() {
-    alert("aaaa");
+    const room = this.socket.getSubscription('juego:' + this.room);
+    room.emit('iniciar', {jugadores: this.jugadores});
     // window.location.replace('https://www.youtube.com/watch?v=yzWAANQwnYQ');
   }
 
