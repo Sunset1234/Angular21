@@ -39,4 +39,15 @@ export class JuegoService {
     let headers = new HttpHeaders().set('Content-Type','application/json');
     return this.http.post(this.root+'tipo/'+id,{headers:headers}).toPromise()
   }
+
+    //método que ocurre cuando un jugador se sale del room
+  eliminarJugador(jugador: number, room: number) {
+    
+    var info = {
+      jugador: jugador,
+      room: room
+    };
+
+    return this.http.put<any>(this.root + 'echar', info);
+  }
 }
