@@ -31,7 +31,7 @@ const routes: Routes = [
   {
     path: 'lobby',
     component: LobbyComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path:'',

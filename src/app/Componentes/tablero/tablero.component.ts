@@ -13,7 +13,7 @@ import * as $ from 'jquery';
 export class TableroComponent implements OnInit {
 
   //socket
-  socket = Ws('ws://localhost:3333');
+  socket = Ws('ws://127.0.0.1:3333');
   channel: any;
   room: number;
 
