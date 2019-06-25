@@ -41,6 +41,8 @@ export class RegistroComponent implements OnInit {
                           localStorage.setItem('recien', '1');
 
                           this.router.navigate(['/login']);
+                        },error=>{
+                          alert('Ya existe un usuario con ese NickName')
                         });
   }
 
