@@ -29,7 +29,7 @@
                 </td>
                 <td>
                   <div>
-                    <div>
+                    <div *ngIf="!this.checadmin">
                         <button type="button" class="btn btn-secondary form-control"
                         style="display: block; margin-bottom: 2%;" 
                         (click)="item.numero_jugadores >= 4 ? return : unirse(item.id);"
@@ -37,11 +37,9 @@
                         Unirse al juego
                         </button>
                     </div>
-                    <div>
-                      <button type="button" class="btn btn-secondary form-control">Ver juego</button>
-                    </div>
-                    
-                   
+                    <div *ngIf="this.checadmin">
+                      <button type="button" (click)="veradmin(item.id)" class="btn btn-secondary form-control">Ver juego</button>
+                    </div>             
                   </div>
                 </td>
               </tr>
@@ -50,9 +48,9 @@
         </div>
   </div>
   
- <div  style="float:left;width:35%;margin-top: 10px;">
-<app-crear-sala></app-crear-sala>
- </div>
+<div style="float:left;width:35%;margin-top: 10px;" *ngIf="this.checadmin">
+  <app-crear-sala></app-crear-sala>
+</div>
    
   
 </div>

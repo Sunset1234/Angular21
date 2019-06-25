@@ -1,0 +1,110 @@
+#intro {
+    width: 100%;
+    height: 60vh;
+    position: relative;
+    background: url('https://playwsop.com/images/background/landscape/background_03.jpg') top center;
+    background-size: cover;
+}
+
+.intro-content {
+
+    background: rgba(0, 0, 0, 0.65);
+    position: absolute;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 15px;
+}
+
+h2{
+    font-family: 'Raleway', sans-serif;
+    color: #353535;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin-top: 0;
+}
+
+#txtlame{
+    animation-duration: 1s;
+    animation-name:botup;
+}
+
+@keyframes botup{
+    from{
+        margin-top:100%;
+        width: 300%
+    }
+    to{
+        margin-top: 0;
+        width:100%;
+    }
+}
+
+.intro-content h2 {
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.intro-content h3 {
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+
+.btn-registro {
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 10px 32px;
+    border-radius: 2px;
+    transition: 0.5s;
+    margin: 10px;
+    color: #fff;
+    box-shadow: 1px black,1px black, 1px black, 1px black;
+}
+
+footer{
+    background:url('https://cdn.pixabay.com/photo/2014/05/24/00/07/woven-cloth-352481_960_720.jpg'); 
+}
+
+#txtfooter{
+    font-family: 'Raleway', sans-serif;
+    color: white;
+}
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+div {
+    display: block;
+}
+
+@media (min-width: 768px)
+.col-md-4 {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+

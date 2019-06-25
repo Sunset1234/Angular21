@@ -47,9 +47,9 @@ export class TableroComponent implements OnInit {
       por consecuente, se trae el contador actualizado y se mete al arreglo para manejar
       el estado del juego
     */
+  
     this.channel.on('entrar', (data) => {
-
-      //asignación de turnos
+          //asignación de turnos
       var posicion = Math.floor(Math.random() * this.turnos.length);
       var rn = this.turnos.splice(posicion, 1);
 
@@ -63,18 +63,21 @@ export class TableroComponent implements OnInit {
     //metodo que se ejecuta cuando carga el componente para validar
     this.validateRoom();
   }
-
-  //método que valida que la persona que entró al room pertenece al juego
+tipo:any;
+  //método que valida que la persona que entró al room pertenece al juego aquiiiiiiiiiiiiii
   validateRoom() {
-    this.juego_service.checkRoom(parseInt(localStorage.getItem('jugador')), this.room).subscribe(res => {
-      if (res) {
-        const room = this.socket.getSubscription('juego:'+ this.room);
-        room.emit('entrar', { jugador: localStorage.getItem('nick'), room: this.room, id: localStorage.getItem('jugador')});
-        // room.emit('count', this.room);
-      } else {
-        this.router.navigate(['lobby'])
-      }
-    });
+    
+      this.juego_service.checkRoom(parseInt(localStorage.getItem('jugador')), this.room).subscribe(res => {
+        console.log("estamos en validate")
+        console.log(res)
+        if (res) {
+          const room = this.socket.getSubscription('juego:'+ this.room);
+          room.emit('entrar', { jugador: localStorage.getItem('nick'), room: this.room, id: localStorage.getItem('jugador')});
+          // room.emit('count', this.room);
+        } else {
+          this.router.navigate(['lobby'])
+        }
+      });  
   }
 
   startGame() {
