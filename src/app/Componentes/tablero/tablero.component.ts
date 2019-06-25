@@ -28,6 +28,8 @@ export class TableroComponent implements OnInit {
   //arreglo en el cual se asignarán los turnos
   turnos: Array<number> = [1, 2, 3, 4];
 
+  urlOculta: string = 'https://i.ytimg.com/vi/H4fKfz5rcx8/maxresdefault.jpg';
+  locals: any = localStorage;
   
   constructor(private juego_service: JuegoService, private router: Router) {
     //se abre la conexión al canal y tópic
@@ -49,17 +51,25 @@ export class TableroComponent implements OnInit {
     */
   
     this.channel.on('entrar', (data) => {
-          //asignación de turnos
+      //asignación de turnos
       var posicion = Math.floor(Math.random() * this.turnos.length);
       var rn = this.turnos.splice(posicion, 1);
-
+      debugger;
       this.jugador = data.msj;
       this.counter = data.count;
       this.jugadores.push({
         id: parseInt(data.id),
-        turno: rn[0]
+        turno: rn[0],
+        nick: data.nick
       });
     });
+
+    this.channel.on('barajear', (data) => {
+      this.jugadores = data.jugadores;
+      console.log(this.jugadores);
+      alert(data.msj);
+    });
+
     //metodo que se ejecuta cuando carga el componente para validar
     this.validateRoom();
   }
@@ -82,8 +92,12 @@ tipo:any;
 
   startGame() {
     const room = this.socket.getSubscription('juego:' + this.room);
-    room.emit('iniciar', {jugadores: this.jugadores});
+    room.emit('barajear', {jugadores: this.jugadores});
     // window.location.replace('https://www.youtube.com/watch?v=yzWAANQwnYQ');
+  }
+
+  ConvertString(value) {
+    return parseInt(value)
   }
 
   // @HostListener('window:unload', [ '$event' ])
