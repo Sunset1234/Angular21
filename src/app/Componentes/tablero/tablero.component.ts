@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import Ws from '@adonisjs/websocket-client';
 import { JuegoService } from 'src/app/Servicios/juego.service';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-tablero',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 
 export class TableroComponent implements OnInit {
-  
+
   //socket
   socket = Ws('ws://localhost:3333');
   channel: any;
@@ -19,6 +20,9 @@ export class TableroComponent implements OnInit {
   jugador: string;
   jugador_id: number;
   counter: number = 0;
+
+  //turno para saber en qué chingados van
+  turno_actual=1;
 
   //flags para saber el estado del juego
   started: boolean = false;
@@ -30,7 +34,7 @@ export class TableroComponent implements OnInit {
 
   urlOculta: string = 'https://i.ytimg.com/vi/H4fKfz5rcx8/maxresdefault.jpg';
   locals: any = localStorage;
-  
+
   constructor(private juego_service: JuegoService, private router: Router) {
     //se abre la conexión al canal y tópic
     this.room = parseInt(localStorage.getItem('juego'));
@@ -49,7 +53,7 @@ export class TableroComponent implements OnInit {
       por consecuente, se trae el contador actualizado y se mete al arreglo para manejar
       el estado del juego
     */
-  
+
     this.channel.on('entrar', (data) => {
       //asignación de turnos
       var posicion = Math.floor(Math.random() * this.turnos.length);
@@ -72,11 +76,28 @@ export class TableroComponent implements OnInit {
 
     //metodo que se ejecuta cuando carga el componente para validar
     this.validateRoom();
+    //acomodar las cartas
+    $(document).ready(function(){
+
+    });
+
+    //para repartir alv
+    this.channel.on('pedir', (data) => {
+      console.log(data)
+      this.jugadores.forEach(jugador => {
+        if( jugador.turno = this.turno_actual){
+
+            jugador.cartas.push([data.obtenida]);
+            console.log(jugador);
+        }
+      });
+
+    });
   }
 tipo:any;
   //método que valida que la persona que entró al room pertenece al juego aquiiiiiiiiiiiiii
   validateRoom() {
-    
+
       this.juego_service.checkRoom(parseInt(localStorage.getItem('jugador')), this.room).subscribe(res => {
         console.log("estamos en validate")
         console.log(res)
@@ -87,7 +108,7 @@ tipo:any;
         } else {
           this.router.navigate(['lobby'])
         }
-      });  
+      });
   }
 
   startGame() {
@@ -100,11 +121,17 @@ tipo:any;
     return parseInt(value)
   }
 
+  //metodo para pedir una carta
+  pedirUna(){
+    this.channel.emit('pedir',this.jugadores);
+  }
+
+
   // @HostListener('window:unload', [ '$event' ])
   // unloadHandler(event) {
 
   //   localStorage.removeItem('juego');
-    
+
   //   if (!this.ended) {
   //     //si el juego no ha terminado, y abandona, consideramos la partida como perdida.
   //     this.juego_service.eliminarJugador(parseInt(localStorage.getItem('jugador')), this.room)
