@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { JugadorService } from 'src/app/Servicios/jugador.service';
+import { Router } from '@angular/router';
+import Ws from '@adonisjs/websocket-client';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-crear-sala',
@@ -15,21 +19,26 @@ export class CrearSalaComponent implements OnInit {
         Validators.required,
         Validators.minLength(2),
       ]),
-      // password: new FormControl('',
-      // [
-      //   Validators.required,
-      //   Validators.minLength(6)
-      // ])
+      
     });
 
-
-  constructor() { }
+  socket = Ws('ws://localhost:3333');
+  constructor(private jugador_service: JugadorService, private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
+    this.socket = this.socket.connect();
+    this.socket.subscribe('lobby');
   }
   
-  crearsala() {
-
-  }
+  crearsala() 
+    {
+     const   nombre_sala=  this.form.value.nombre_sala
+     this.jugador_service.createroom(nombre_sala).subscribe(data=>{
+        console.log(data);
+     })
+     const lobby = this.socket.getSubscription('lobby');
+     lobby.emit('message', nombre_sala);
+    }
+  
 
 }

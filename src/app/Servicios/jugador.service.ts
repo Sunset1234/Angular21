@@ -19,4 +19,10 @@ export class JugadorService {
 
     return this.http.post(this.root + url, jugador, {responseType: 'text'});
   }
+
+  createroom(nombre_sala:string){
+    let juego= {nombre_sala :nombre_sala}
+    return this.http.post(this.root+'createroom',juego, {responseType: 'text'});   
+  }
+
 }
