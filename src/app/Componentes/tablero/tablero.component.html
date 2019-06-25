@@ -27,7 +27,8 @@
           <img *ngFor="let carta of item.cartas" class="cartas" [src]="ConvertString(locals.getItem('jugador')) === item.id ? carta[0].src : (carta[0].hidden ? urlOculta : carta[0].src)" alt="">
       </div>
         <p>{{item.nick}}</p>
-        <button class="btn btn-dark" (click)="pedirUna()">Pedir carta</button>
+        <button class="btn btn-dark mr-2" *ngIf="this.item.su_turno && this.item.id==id_jugador" (click)="pedirUna(this.item.turno,this.item.su_turno)">Pedir carta</button>
+        <button class="btn btn-danger" *ngIf="this.item.su_turno && this.item.id==id_jugador" (click)="acabar(this.item.su_turno)"> Pasar turno</button>
     </div>
     </section>
   </div>
