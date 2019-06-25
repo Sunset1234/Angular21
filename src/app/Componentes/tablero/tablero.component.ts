@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class TableroComponent implements OnInit, OnDestroy {
   
   //socket
-  socket = Ws('ws://localhost:3333');
+  socket = Ws('ws://127.0.0.1:3333');
   channel: any;
   room: number;
 
