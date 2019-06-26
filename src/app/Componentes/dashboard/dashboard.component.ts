@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   porcentaje_ganadas:number;
   datos_de_partida:string;
   fecha_de_partida:string ;
-  grafica:any;
+
   constructor(private estadisticas: EstadisticasService) { }
 
   ngOnInit() {
@@ -29,16 +29,18 @@ export class DashboardComponent implements OnInit {
 
       //grafica
       var prueba= document.getElementById('grafica');
-      if(data['partidas'].jugadas >= 0 ) {
-          var chart= new Chart(prueba, {
+      if(data['partidas'].partidas_jugadas >= 0 ) {
+          var chart = new Chart(prueba, {
         type:'pie',
         data:{
           labels: ['partidas ganadas', 'partidas perdidas'],
           datasets:[{
             label: 'veces',
-            data:[ data['partidas'].partidas_ganadas,data['partidas'].partidas_jugadas - data['partidas'].partidas_ganadas],
+            data:[ (data['partidas'].partidas_ganadas != 0) ? data['partidas'].partidas_ganadas: 10 ,
+                    (data['partidas'].partidas_jugadas - data['partidas'].partidas_ganadas)!=0 ? data['partidas'].partidas_jugadas - data['partidas'].partidas_ganadas: 10
+                  ],
             //data:[10,30],
-            backgroundColor:[
+            backgroundColor: [
              '#199ac1',
              '#4f4f4f'
             ]
