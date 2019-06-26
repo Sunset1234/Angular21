@@ -42,9 +42,7 @@ export class TableroComponent implements OnInit {
     this.room = parseInt(localStorage.getItem('juego'));
     this.socket = this.socket.connect();
     this.channel = this.socket.subscribe('juego:' + this.room);
-
   }
-
 
   tipoUser:any;
   validaBoton:boolean;

@@ -14,6 +14,7 @@ import { TableroComponent } from './Componentes/tablero/tablero.component';
 import { LobbyComponent } from './Componentes/lobby/lobby.component';
 import { CrearSalaComponent } from './Componentes/crear-sala/crear-sala.component';
 import { InicioComponent } from './Componentes/inicio/inicio.component';
+import { DashboardComponent } from './Componentes/dashboard/dashboard.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { InicioComponent } from './Componentes/inicio/inicio.component';
     TableroComponent,
     LobbyComponent,
     CrearSalaComponent,
-    InicioComponent
+    InicioComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
