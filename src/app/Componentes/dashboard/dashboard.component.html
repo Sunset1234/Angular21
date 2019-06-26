@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 text-center mt-3"> <h4> Bienvenid@ a tus estadísticas {{ Jugador }} </h4></div>
+  </div>
+  <hr class="my-3">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-7 col-xl-7 table-responsive text-center card shadow-sm">
+        <table class="table table-sm table-dark">
+          <thead>
+            <tr>
+              <th>Partidas ganadas</th>
+              <th>Partidas jugadas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let partida of Datos_jugador">
+              <td>{{ partida.partidas_ganadas }}</td>
+              <td>{{ partida.partidas_jugadas }}</td>
+            </tr>
+          </tbody>
+        </table>
+      <canvas id='grafica'></canvas>
+    </div>
+    <div class="col-sm-12 col-xs-12 col-md-6 col-lg-5 col-xl-5">
+        <div class="card shadow-sm mb-5">
+          <div class="card-body">
+            <h5 class="card-title">Win Rate</h5>
+            <p class="card-text">{{ porcentaje_ganadas }} %</p>
+          </div>
+        </div>
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Ultima Jugada</h5>
+            <p class="card-text">Su juego fue el: {{ fecha_de_partida | date: 'dd/MM/yyyy'}} en la sala: {{ datos_de_partida }}</p>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

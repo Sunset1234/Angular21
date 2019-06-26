@@ -9,7 +9,7 @@ msj {
   width: 100%;
   height: 130vh;
   position: relative;
-  background: url('https://i.imgur.com/VBaXzjM.png') top center;
+  background: url('https://imgur.com/bUgJqBI.png') top center;
   background-size: cover;
 }
 .cartas{
@@ -19,7 +19,7 @@ msj {
 #jugador1{
   width: 320px;
   height: 170px;
-  margin-top: -35px;
+  margin-top: 30px;
   margin-left: 995px; 
   
 }
@@ -39,6 +39,7 @@ msj {
 #jugador4{
   width: 320px;
   height: 170px;
-  margin-top: -300px;
-  margin-left: 15px; 
+  margin-top: -500px;
+  margin-bottom: 150px;
+  margin-left: -640px;
 }

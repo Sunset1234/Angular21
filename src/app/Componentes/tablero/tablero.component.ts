@@ -17,6 +17,7 @@ export class TableroComponent implements OnInit {
   socket = Ws('ws://127.0.0.1:3333');
   channel: any;
   room: number;
+  contador_turno:number=4;
 
   jugador: string;
   jugador_id: number;
@@ -32,9 +33,9 @@ export class TableroComponent implements OnInit {
   jugadoresssss = [];
   jugadores: Array<any> = [];
   //arreglo en el cual se asignarán los turnos
-  turnos: Array<number> = [1, 2];
+  turnos: Array<number> = [1,2,3,4];
 
-  urlOculta: string = 'https://i.ytimg.com/vi/H4fKfz5rcx8/maxresdefault.jpg';
+  urlOculta: string = 'https://i.imgur.com/rsGJHBC.png';
   locals: any = localStorage;
   id_jugador = localStorage.jugador;
 
@@ -43,9 +44,7 @@ export class TableroComponent implements OnInit {
     this.room = parseInt(localStorage.getItem('juego'));
     this.socket = this.socket.connect();
     this.channel = this.socket.subscribe('juego:' + this.room);
-
   }
-
 
   tipoUser:any;
   validaBoton:boolean;
@@ -53,6 +52,8 @@ export class TableroComponent implements OnInit {
     this.channel.on('error', (err) => {
       alert(err);
     })
+
+    
 
     /*
       Evento entrar.
@@ -73,10 +74,10 @@ export class TableroComponent implements OnInit {
       console.log(this.jugadores);
       alert(data.msj);
       $(document).ready(function(){
-        console.log('entré')
+        console.log('entré al ready')
         $('#1').appendTo('#jugador1')
-        $('#3').appendTo('#jugador2')
-        $('#2').appendTo('#jugador3')
+        $('#2').appendTo('#jugador2')
+        $('#3').appendTo('#jugador3')
         $('#4').appendTo('#jugador4')
     });
     });
