@@ -36,9 +36,8 @@ export class DashboardComponent implements OnInit {
           labels: ['partidas ganadas', 'partidas perdidas'],
           datasets:[{
             label: 'veces',
-            data:[ (data['partidas'].partidas_ganadas != 0) ? data['partidas'].partidas_ganadas: 10 ,
-                    (data['partidas'].partidas_jugadas - data['partidas'].partidas_ganadas)!=0 ? data['partidas'].partidas_jugadas - data['partidas'].partidas_ganadas: 10
-                  ],
+            data:[ (data['partidas'].partidas_ganadas != 0) ? data['partidas'].partidas_ganadas: 1 ,
+                    (data['partidas'].partidas_jugadas - data['partidas'].partidas_ganadas)],
             //data:[10,30],
             backgroundColor: [
              '#199ac1',
