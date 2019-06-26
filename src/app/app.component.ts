@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { StorageServiceService} from'./Servicios/storage-service.service';
 import Ws from '@adonisjs/websocket-client';
 import {Pipe, PipeTransform} from '@angular/core';
@@ -6,6 +6,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import { Ptor } from 'protractor';
 import { Carta } from './Modelos/Carta';
 import { BehaviorSubject } from 'rxjs';
+
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,8 @@ export class AppComponent implements OnInit{
   ngOnInit(){
     this._StorageService.currentMessage.subscribe(resultado=>{
       console.log(resultado);
-    })
+    });
+
   }
 
   img= new Array<Carta>();

@@ -6,11 +6,11 @@
       Contador y botón de administrador para iniciar juego.
       TODO: CHECAR CON GUARD O ALGO QUE TENG PERMISO DE ADMIN Y QUE SÓLO SEA VISIBLE POR ESTE
     -->
-    <div class="card col-3 shadow" *ngIf="this.validaBoton">
+    <div class="card col-3 shadow">
       <div class="card-body">
         <h5 class="card-title" id="msg" [ngClass]="{'msj': true}"  class="msj">{{jugador}}        </h5>
         <h5 class="card-title">Jugadores: {{counter}}</h5>
-        <button class="btn btn-primary" (click)="startGame()"> Iniciar partida</button>
+        <button *ngIf="this.validaBoton" class="btn btn-primary" (click)="startGame()"> Iniciar partida</button>
       </div>
     </div>
 

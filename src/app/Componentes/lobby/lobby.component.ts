@@ -12,7 +12,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 })
 export class LobbyComponent implements OnInit {
 
-  socket= Ws('ws://127.0.0.1:3333');
+  socket= Ws('ws://192.168.50.10:3333');
   channel: any;
   id:string;
   room:string='';

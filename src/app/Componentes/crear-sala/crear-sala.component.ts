@@ -22,7 +22,7 @@ export class CrearSalaComponent implements OnInit {
       
     });
 
-  socket = Ws('ws://127.0.0.1:3333');
+  socket = Ws('ws://192.168.50.10:3333');
   constructor(private jugador_service: JugadorService, private router: Router, private http: HttpClient) { }
 
   ngOnInit() {

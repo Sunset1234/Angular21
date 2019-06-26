@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/Servicios/auth.service';
 import { Router } from '@angular/router';
+import { JuegoService } from 'src/app/Servicios/juego.service';
+
 
 @Component({
   selector: 'app-auth',
@@ -24,27 +26,30 @@ export class AuthComponent implements OnInit {
     ])
   });
 
-  //creado: number = 0;
+  //PROPIEDAD PARA MANDAR
+  @Output() getEstadoUser=new EventEmitter();
+  public estadoUser:boolean;
 
-  constructor(private auth_service: AuthService, private router: Router) { }
+  constructor(private auth_service: AuthService, private router: Router, private _juego_service:JuegoService) { }
 
   ngOnInit() {
-    //hay que validar esto o quitarlo alv
-    //this.creado = localStorage.length > 0 ? parseInt(localStorage.getItem('recien')) : 0;
+    this.estadoUser=false;
   }
 
-  login() {
-    this.auth_service.login(this.form.value.nickname, this.form.value.password, 'login')
-                     .subscribe(data => {
-                          localStorage.setItem('token', data.token);
-                          localStorage.setItem('jugador', data.jugador);
-                          localStorage.setItem('nick', data.nick);
-                          console.log(data.tipo);
-                          this.router.navigate(['/lobby']);
-                     },
-                     error=>{
-                          alert('Correo o contraseña invalidos');
-                     });
+  msg:string="logeado";
+  login(event) {
+    console.log(event)
+
+    this.auth_service.login(this.form.value.nickname, this.form.value.password, 'login').subscribe(data => {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('jugador', data.jugador);
+      localStorage.setItem('nick', data.nick);
+      this.estadoUser=true;  
+      this.getEstadoUser.emit(this.estadoUser)
+      this.router.navigate(['/lobby']);
+      },error=>{
+          alert('Correo o contraseña invalidos');
+      });
   }
 
   registro(){

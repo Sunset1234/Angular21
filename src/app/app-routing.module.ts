@@ -9,13 +9,10 @@ import { LobbyComponent } from './Componentes/lobby/lobby.component';
 import { InicioComponent } from './Componentes/inicio/inicio.component';
 
 const routes: Routes = [
-
-
-
   {
     path: 'crear',
     component: RegistroComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
@@ -26,7 +23,7 @@ const routes: Routes = [
   {
     path: 'tablero',
     component:TableroComponent,
-    // canActivate: [RoomGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'lobby',

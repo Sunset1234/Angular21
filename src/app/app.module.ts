@@ -41,7 +41,7 @@ import { InicioComponent } from './Componentes/inicio/inicio.component';
     //   multi: true
     // }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [BarraComponent],
   
 })
 export class AppModule { }

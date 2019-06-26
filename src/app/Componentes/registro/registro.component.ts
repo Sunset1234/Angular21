@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { JugadorService } from 'src/app/Servicios/jugador.service';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
+
   //reactive forms
   form = new FormGroup({
     nickname: new FormControl('',
@@ -25,7 +26,7 @@ export class RegistroComponent implements OnInit {
     ])
   });
 
-  socket = Ws('ws://127.0.0.1:3333');
+  socket = Ws('ws://192.168.50.10:3333');
 
   constructor(private jugador_service: JugadorService, private router: Router, private http: HttpClient) { }
 
@@ -34,19 +35,15 @@ export class RegistroComponent implements OnInit {
     this.socket.subscribe('lobby:');
   }
 
-  crearJugador() {
-    this.jugador_service.jugador(this.form.value.nickname, this.form.value.password, 'jugador')
-                        .subscribe(data => {
-                          //si está recién registrado, quiero mostrar un mensaje en el componente de login
-                          localStorage.setItem('recien', '1');
+  crearJugador(){
 
-                          this.router.navigate(['/login']);
-                        },error=>{
-                          alert('Ya existe un usuario con ese NickName')
-                        });
+    this.jugador_service.jugador(this.form.value.nickname, this.form.value.password, 'jugador').subscribe(data => {
+      //si está recién registrado, quiero mostrar un mensaje en el componente de login
+      localStorage.setItem('recien', '1');
+      this.router.navigate(['/login']);
+    },error=>{
+      alert('Ya existe un usuario con ese NickName')
+    });
+
   }
-
-
-  
-
 }

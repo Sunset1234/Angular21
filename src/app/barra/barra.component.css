@@ -15,7 +15,14 @@ li{
     font-family: 'Raleway', sans-serif;
 }
 
-#barra{
-    background-color: #656565;
-    background: url('https://cdn.pixabay.com/photo/2014/05/24/00/07/woven-cloth-352481_960_720.jpg');
+.navbar{
+    background:url('https://cdn.pixabay.com/photo/2014/05/24/00/07/woven-cloth-352481_960_720.jpg');
+}
+
+.btn{
+    border-color:#f2f2f2;
+}
+
+.btn:over{
+    scrollbar-shadow-color: white;
 }

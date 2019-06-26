@@ -14,19 +14,31 @@ export class AuthGuard implements CanActivate {
   //promesa porque ejecuta el resto del código sin la petición
   async canActivate(route: import("@angular/router").ActivatedRouteSnapshot, state: import("@angular/router").RouterStateSnapshot): Promise<boolean> {
     var toLogin = route.url[0].path === 'login' ? true : false;
+    var toCrear = route.url[0].path === 'crear' ? true : false;
+    var toTablero = route.url[0].path === 'tablero' ? true : false;
     
     if (localStorage.getItem('token')) {
       //retorna un "objeto" aunque en consola diga true o false así que mejor lo parseo ¯\_(ツ)_/¯
       //si se modificó el token igual te manda pa tu casa
       var authenticated = Boolean(await this.verificarLogin().toPromise());
 
-      //si el path es login, y estás autorizado no te deja entrar.
+      //Si el path es login y estás autorizado no te deja entrar.
       if (toLogin) {
-        return authenticated ? false : true;
+        if(authenticated){ return this.router.navigate(['']) } else{ return true }
+        //return authenticated ? false : true;
+      }
+
+      //Si el path es crear y estás autorizado no te deja entrar.
+      if(toCrear){
+        if(authenticated){ return this.router.navigate(['']) } else{ return true }
       }
 
       return authenticated;
-    } else {
+    }else {
+
+      if(toCrear){ return true }
+      if(toTablero){ return this.router.navigate(['/crear']) }
+
       return toLogin ? true : false
     }
   }
@@ -37,7 +49,7 @@ export class AuthGuard implements CanActivate {
       "autorizacion" : localStorage.getItem("token")
     });
 
-    return this.http.get('http://127.0.0.1:3333/' + 'verificar', {headers: headerAuth});
+    return this.http.get('http://192.168.50.10:3333/' + 'verificar', {headers: headerAuth});
   }
 
 }
