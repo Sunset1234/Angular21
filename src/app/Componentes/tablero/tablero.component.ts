@@ -81,14 +81,14 @@ export class TableroComponent implements OnInit {
         this.counter = data.count;
 
         //SI ES DEL TIPO 2 = USUARIO NORMAL, SE LE ASIGNARÁ UN TURNO
-        //if(this.tipoUser==2){
+        if(this.tipoUser==2){
             //ASIGNACIÓN DE TURNOS
             this.jugadores.push({
               id: parseInt(data.id),
               turno: rn[0],
               nick: data.nick
             });
-       // }               
+        }               
       });
     });
 
