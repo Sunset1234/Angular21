@@ -3,6 +3,7 @@ import Ws from '@adonisjs/websocket-client';
 import { JuegoService } from 'src/app/Servicios/juego.service';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-tablero',
@@ -44,6 +45,9 @@ export class TableroComponent implements OnInit {
 
   }
 
+
+  tipoUser:any;
+  validaBoton:boolean;
   ngOnInit() {
     this.channel.on('error', (err) => {
       alert(err);
@@ -56,18 +60,35 @@ export class TableroComponent implements OnInit {
       el estado del juego
     */
 
-    this.channel.on('entrar', (data) => {
-      //asignación de turnos
-      var posicion = Math.floor(Math.random() * this.turnos.length);
-      var rn = this.turnos.splice(posicion, 1);
 
-      this.jugador = data.msj;
-      this.counter = data.count;
-      debugger;
-      this.jugadores.push({
-        id: parseInt(data.id),
-        turno: rn[0],
-        nick: data.nick
+    this.channel.on('entrar', (data) => {
+
+      //SERVICIO PARA OBTENER TIPO DE USUARIO
+      this.juego_service.ConsultaTipo(localStorage.getItem('jugador')).then(item=>{
+        this.tipoUser=item['es_admin']
+        if(this.tipoUser==1){
+          this.validaBoton=true;
+        }
+    
+
+        // // GENERAR RANDOM PARA TURNOS
+        // var posicion = Math.floor(Math.random() * this.turnos.length);
+
+        // //QUITAR UN TURNO DEL ARREGLO
+        // var rn = this.turnos.splice(posicion, 1);
+
+        this.jugador = data.msj;
+        this.counter = data.count;
+
+        // //SI ES DEL TIPO 2 = USUARIO NORMAL, SE LE ASIGNARÁ UN TURNO
+        // if(this.tipoUser==2){
+        //     //ASIGNACIÓN DE TURNOS
+        //     this.jugadores.push({
+        //       id: parseInt(data.id),
+        //       turno: rn[0],
+        //       nick: data.nick
+        //     });
+        // }              
       });
     });
 
@@ -75,14 +96,19 @@ export class TableroComponent implements OnInit {
       this.jugadores = data.jugadores;
       console.log(this.jugadores);
       alert(data.msj);
+      $(document).ready(function(){
+        console.log('entré')
+        $('#1').appendTo('#jugador1')
+        $('#3').appendTo('#jugador2')
+        $('#2').appendTo('#jugador3')
+        $('#4').appendTo('#jugador4')
+    });
     });
 
     //metodo que se ejecuta cuando carga el componente para validar
     this.validateRoom();
     //acomodar las cartas
-    $(document).ready(function(){
 
-    });
 
     //para repartir alv
     this.channel.on('pedir', (data) => {
@@ -112,13 +138,13 @@ export class TableroComponent implements OnInit {
     // console.log('Sigue el jugador número:' + turno)
     // });
   }
+
+
 tipo:any;
   //método que valida que la persona que entró al room pertenece al juego aquiiiiiiiiiiiiii
   validateRoom() {
 
       this.juego_service.checkRoom(parseInt(localStorage.getItem('jugador')), this.room).subscribe(res => {
-        console.log("estamos en validate")
-        console.log(res)
         if (res) {
           const room = this.socket.getSubscription('juego:'+ this.room);
           room.emit('entrar', { jugador: localStorage.getItem('nick'), room: this.room, id: localStorage.getItem('jugador')});
@@ -140,10 +166,19 @@ tipo:any;
   }
 
   //metodo para pedir una carta
-  pedirUna(valor,turno){
+  pedirUna(valor, turno) {
     console.log(valor);
-    console.log(' valor'+ turno);
-    this.channel.emit('pedir',{valor,turno});
+    console.log(' valor' + turno);
+    this.jugadores.forEach(jugador => {
+      if(jugador.su_turno) {
+        if(jugador.cartas.length <= 4) {
+          this.channel.emit('pedir', { valor, turno});
+        }else{
+          alert('Límite de cartas alcanzadas: máximo 5 cartas')
+        }
+      }
+    })
+
   }
 
   //pasar turno para que el otro jugador siga
