@@ -50,4 +50,8 @@ export class JuegoService {
 
     return this.http.put<any>(this.root + 'echar', info);
   }
+
+  ganador(id: number) {
+    return this.http.post<any>(this.root + 'ganador/' + id, id);
+  }
 }
