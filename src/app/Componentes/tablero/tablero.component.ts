@@ -28,6 +28,7 @@ export class TableroComponent implements OnInit {
   started: boolean = false;
   ended: boolean = false;
 
+  jugadoresssss = [];
   jugadores: Array<any> = [];
   //arreglo en el cual se asignarán los turnos
   turnos: Array<number> = [1, 2];
@@ -62,6 +63,7 @@ export class TableroComponent implements OnInit {
 
       this.jugador = data.msj;
       this.counter = data.count;
+      debugger;
       this.jugadores.push({
         id: parseInt(data.id),
         turno: rn[0],
@@ -95,20 +97,20 @@ export class TableroComponent implements OnInit {
 
     });
     //turnos globales
-    this.channel.on('pasarturno',turno=>{
-      this.jugadores.forEach(jugador => {
-        if(jugador.su_turno == turno){
-          console.log('es mi turno'+ jugador.turno)
-          this.jugadores[jugador.turno].su_turno = true
-          jugador.su_turno = false;
-        }else{
-          console.log('no es mi turno')
-          jugador.su_turno = false;
-        }
-      });
+    // this.channel.on('pasarturno',turno=>{
+    //   this.jugadores.forEach(jugador => {
+    //     if(jugador.su_turno == turno){
+    //       console.log('es mi turno'+ jugador.turno)
+    //       this.jugadores[jugador.turno].su_turno = true
+    //       jugador.su_turno = false;
+    //     }else{
+    //       console.log('no es mi turno')
+    //       jugador.su_turno = false;
+    //     }
+    //   });
 
-    console.log('Sigue el jugador número:' + turno)
-    });
+    // console.log('Sigue el jugador número:' + turno)
+    // });
   }
 tipo:any;
   //método que valida que la persona que entró al room pertenece al juego aquiiiiiiiiiiiiii
@@ -145,8 +147,10 @@ tipo:any;
   }
 
   //pasar turno para que el otro jugador siga
-  acabar(valor){
-    this.channel.emit('pasarturno', valor);
+  acabar() {
+    console.log(this.jugadores);
+
+    this.channel.emit('skip', {jugador: parseInt(localStorage.getItem('jugador')), jugadores: this.jugadores});
   }
   // @HostListener('window:unload', [ '$event' ])
   // unloadHandler(event) {

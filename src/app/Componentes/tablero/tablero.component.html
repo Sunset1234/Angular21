@@ -21,7 +21,7 @@
       </div>
         <p>{{item.nick}}</p>
         <button class="btn btn-dark mr-2" *ngIf="this.item.su_turno && this.item.id==id_jugador" (click)="pedirUna(this.item.turno,this.item.su_turno)">Pedir carta</button>
-        <button class="btn btn-danger" *ngIf="this.item.su_turno && this.item.id==id_jugador" (click)="acabar(this.item.su_turno)"> Pasar turno</button>
+        <button class="btn btn-danger" *ngIf="this.item.su_turno && this.item.id==id_jugador" (click)="acabar()"> Pasar turno</button>
     </div>
     <div id="jugador1" class="bg-dark"></div>
     <div id="jugador2" class="bg-dark"></div>
