@@ -24,12 +24,13 @@ export class TableroComponent implements OnInit {
   counter: number = 0;
 
   //turno para saber en qué chingados van
-  turno_actual=1;
+  turno_actual = 1;
 
   //flags para saber el estado del juego
   started: boolean = false;
   ended: boolean = false;
 
+  jugadoresssss = [];
   jugadores: Array<any> = [];
   //arreglo en el cual se asignarán los turnos
   turnos: Array<number> = [1,2,3,4];
@@ -37,6 +38,7 @@ export class TableroComponent implements OnInit {
   urlOculta: string = 'https://i.imgur.com/rsGJHBC.png';
   locals: any = localStorage;
   id_jugador = localStorage.jugador;
+
   constructor(private juego_service: JuegoService, private router: Router) {
     //se abre la conexión al canal y tópic
     this.room = parseInt(localStorage.getItem('juego'));
@@ -59,7 +61,6 @@ export class TableroComponent implements OnInit {
       por consecuente, se trae el contador actualizado y se mete al arreglo para manejar
       el estado del juego
     */
-
 
     this.channel.on('entrar', (data) => {
 
@@ -90,6 +91,10 @@ export class TableroComponent implements OnInit {
             });
         }               
       });
+        this.jugador = data.msj; //mensaje de aviso
+        this.counter = data.count; //contador
+        this.jugadores = data.jugadores;
+        debugger;
     });
 
     this.channel.on('barajear', (data) => {
@@ -105,6 +110,25 @@ export class TableroComponent implements OnInit {
     });
     });
 
+    
+    this.channel.on('skip', (data) => {
+      this.jugadores = data.jugadores;
+
+      $(document).ready(function(){
+        console.log('entré')
+        $('#1').appendTo('#jugador1')
+        $('#3').appendTo('#jugador2')
+        $('#2').appendTo('#jugador3')
+        $('#4').appendTo('#jugador4')
+      });
+
+      if (this.contadorTurnos >= 4) {
+        //función para declarar ganador
+        this.declararGanador();
+      }
+
+    });
+    
     //metodo que se ejecuta cuando carga el componente para validar
     this.validateRoom();
     //acomodar las cartas
@@ -123,39 +147,83 @@ export class TableroComponent implements OnInit {
 
     });
     //turnos globales
-    this.channel.on('pasarturno',turno=>{
-      this.jugadores.forEach(jugador => {
-        if(jugador.su_turno == turno){
-          console.log('es mi turno'+ jugador.turno)
-          this.jugadores[jugador.turno].su_turno = true
-          jugador.su_turno = false;
-        }else{
-          console.log('no es mi turno')
-          jugador.su_turno = false;
-        }
-      });
+    // this.channel.on('pasarturno',turno=>{
+    //   this.jugadores.forEach(jugador => {
+    //     if(jugador.su_turno == turno){
+    //       console.log('es mi turno'+ jugador.turno)
+    //       this.jugadores[jugador.turno].su_turno = true
+    //       jugador.su_turno = false;
+    //     }else{
+    //       console.log('no es mi turno')
+    //       jugador.su_turno = false;
+    //     }
+    //   });
 
-    console.log('Sigue el jugador número:' + turno)
-    });
+    // console.log('Sigue el jugador número:' + turno)
+    // });
   }
 
+contadorTurnos: number = 0;
+
+  declararGanador() {
+    this.jugadores.forEach((el) => {
+      var totalPts = 0;
+
+      el.cartas.forEach((el) => {
+        totalPts += parseInt(el[0].valor);
+      });
+
+      el.totalPts = totalPts;
+    });
+
+    console.log(this.jugadores);
+    var res = Math.max.apply(Math,this.jugadores.map(function(o){return o.totalPts;}))
+
+    var obj = this.jugadores.find(function(o){ return o.totalPts == res; });
+
+    this.juego_service.ganador(obj.id).subscribe(res => {
+      alert("EL GANADOR ES: " + obj.jugador);
+      this.ended = true;
+      this.router.navigate(['lobby']);
+    });
+  }
 
 tipo:any;
   //método que valida que la persona que entró al room pertenece al juego aquiiiiiiiiiiiiii
   validateRoom() {
+    //SERVICIO PARA OBTENER TIPO DE USUARIO
+    this.juego_service.ConsultaTipo(localStorage.getItem('jugador')).then( item => {
+      this.tipoUser = item['es_admin'];
+      
+      if (this.tipoUser == 1) {
+        this.validaBoton = true;
+      }
+    });
 
-      this.juego_service.checkRoom(parseInt(localStorage.getItem('jugador')), this.room).subscribe(res => {
-        if (res) {
-          const room = this.socket.getSubscription('juego:'+ this.room);
-          room.emit('entrar', { jugador: localStorage.getItem('nick'), room: this.room, id: localStorage.getItem('jugador')});
-          // room.emit('count', this.room);
-        } else {
-          this.router.navigate(['lobby'])
-        }
-      });
+    this.juego_service.checkRoom(parseInt(localStorage.getItem('jugador')), this.room).subscribe(res => {
+      if (res) {
+        const room = this.socket.getSubscription('juego:'+ this.room);
+        room.emit('entrar', { jugador: localStorage.getItem('nick'), room: this.room, id: parseInt(localStorage.getItem('jugador')), rol: this.tipoUser});
+        // room.emit('count', this.room);
+      } else {
+        this.router.navigate(['lobby'])
+      }
+    });
   }
 
   startGame() {
+    //SIGNACIÓN DE TURNOS AL AZAR
+    var turnos = [1, 2, 3, 4];
+
+    this.jugadores.forEach((el) => {
+      // GENERAR RANDOM PARA TURNOS
+      var posicion = Math.floor(Math.random() * turnos.length);
+      //QUITAR UN TURNO DEL ARREGLO
+      var turno = turnos.splice(posicion, 1);
+
+      el.turno = turno[0];
+    });
+
     const room = this.socket.getSubscription('juego:' + this.room);
     room.emit('barajear', {jugadores: this.jugadores});
     // window.location.replace('https://www.youtube.com/watch?v=yzWAANQwnYQ');
@@ -181,10 +249,14 @@ tipo:any;
 
   }
 
+  
   //pasar turno para que el otro jugador siga
-  acabar(valor){
-    this.channel.emit('pasarturno', valor);
+  acabar() {
+    this.contadorTurnos++;
+
+    this.channel.emit('skip', {jugador: parseInt(localStorage.getItem('jugador')), jugadores: this.jugadores});
   }
+
   // @HostListener('window:unload', [ '$event' ])
   // unloadHandler(event) {
 
@@ -206,9 +278,9 @@ tipo:any;
  * https://i.imgur.com/VBaXzjM.png con letras
 */
 
-window.addEventListener('beforeunload', (event) => {
-  // Cancel the event as stated by the standard.
-  event.preventDefault();
-  // Chrome requires returnValue to be set.
-  event.returnValue = '';
-});
+// window.addEventListener('beforeunload', (event) => {
+//   // Cancel the event as stated by the standard.
+//   event.preventDefault();
+//   // Chrome requires returnValue to be set.
+//   event.returnValue = '';
+// });
