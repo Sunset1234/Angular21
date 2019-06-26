@@ -63,6 +63,34 @@ export class TableroComponent implements OnInit {
     */
 
     this.channel.on('entrar', (data) => {
+
+      //SERVICIO PARA OBTENER TIPO DE USUARIO
+      this.juego_service.ConsultaTipo(localStorage.getItem('jugador')).then(item=>{
+        this.tipoUser=item['es_admin']
+        if(this.tipoUser==1){
+          this.validaBoton=true;
+        }
+    
+
+        // GENERAR RANDOM PARA TURNOS
+        var posicion = Math.floor(Math.random() * this.turnos.length);
+
+        //QUITAR UN TURNO DEL ARREGLO
+        var rn = this.turnos.splice(posicion, 1);
+
+        this.jugador = data.msj;
+        this.counter = data.count;
+
+        //SI ES DEL TIPO 2 = USUARIO NORMAL, SE LE ASIGNARÁ UN TURNO
+        if(this.tipoUser==2){
+            //ASIGNACIÓN DE TURNOS
+            this.jugadores.push({
+              id: parseInt(data.id),
+              turno: rn[0],
+              nick: data.nick
+            });
+        }               
+      });
         this.jugador = data.msj; //mensaje de aviso
         this.counter = data.count; //contador
         this.jugadores = data.jugadores;
