@@ -10,25 +10,26 @@
       <div class="card-body">
         <h5 class="card-title" id="msg" [ngClass]="{'msj': true}"  class="msj">{{jugador}}        </h5>
         <h5 class="card-title">Jugadores: {{counter}}</h5>
-        <button *ngIf="this.validaBoton" class="btn btn-primary" (click)="startGame()"> Iniciar partida</button>
+        <button  class="btn btn-primary" (click)="startGame()"> Iniciar partida</button>
       </div>
     </div>
 
     <!-- posición de los jugadores-->
-    <div style="height:200px;" *ngFor="let item of jugadores " class="jugador" id="{{ item.id }}">
+    <div style="height:200px;" *ngFor="let item of jugadores " class="jugador" id="{{ item.turno }}">
       <div>
           <img *ngFor="let carta of item.cartas" class="cartas" [src]="ConvertString(locals.getItem('jugador')) === item.id ? carta[0].src : (carta[0].hidden ? urlOculta : carta[0].src)" alt="">
       </div>
-        <p>{{item.nick}}</p>
+        <p  style=" font-family: 'Raleway', sans-serif;
+        text-shadow: 1px 1px  white;font-size: 20px;">{{item.nick}}</p>
         <button class="btn btn-dark mr-2" *ngIf="this.item.su_turno && this.item.id==id_jugador" (click)="pedirUna(this.item.turno,this.item.su_turno)">Pedir carta</button>
         <button class="btn btn-danger" *ngIf="this.item.su_turno && this.item.id==id_jugador" (click)="acabar(this.item.su_turno)"> Pasar turno</button>
     </div>
     <div class="containr">
       <div class="row align-items-end">
-        <div id="jugador1" ></div>
-        <div id="jugador2" ></div>
-        <div id="jugador3" ></div>
-        <div id="jugador4" ></div>
+        <div id="jugador1"></div>
+        <div id="jugador2"> </div>
+        <div id="jugador3"></div>
+        <div id="jugador4"></div>
       </div>
     </div>
      <!--<img src="https://i.imgur.com/VBaXzjM.png" class="img-fluid" alt="">-->

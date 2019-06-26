@@ -17,6 +17,7 @@ export class TableroComponent implements OnInit {
   socket = Ws('ws://127.0.0.1:3333');
   channel: any;
   room: number;
+  contador_turno:number=4;
 
   jugador: string;
   jugador_id: number;
@@ -31,9 +32,9 @@ export class TableroComponent implements OnInit {
 
   jugadores: Array<any> = [];
   //arreglo en el cual se asignarán los turnos
-  turnos: Array<number> = [1, 2];
+  turnos: Array<number> = [1,2,3,4];
 
-  urlOculta: string = 'https://i.ytimg.com/vi/H4fKfz5rcx8/maxresdefault.jpg';
+  urlOculta: string = 'https://i.imgur.com/rsGJHBC.png';
   locals: any = localStorage;
   id_jugador = localStorage.jugador;
   constructor(private juego_service: JuegoService, private router: Router) {
@@ -52,6 +53,8 @@ export class TableroComponent implements OnInit {
       alert(err);
     })
 
+    
+
     /*
       Evento entrar.
       Cuando entre un jugador se le asigna un turno, y al mismo se le da la bienvenida
@@ -68,7 +71,7 @@ export class TableroComponent implements OnInit {
         if(this.tipoUser==1){
           this.validaBoton=true;
         }
-
+    
 
         // GENERAR RANDOM PARA TURNOS
         var posicion = Math.floor(Math.random() * this.turnos.length);
@@ -80,14 +83,14 @@ export class TableroComponent implements OnInit {
         this.counter = data.count;
 
         //SI ES DEL TIPO 2 = USUARIO NORMAL, SE LE ASIGNARÁ UN TURNO
-        if(this.tipoUser==2){
+        //if(this.tipoUser==2){
             //ASIGNACIÓN DE TURNOS
             this.jugadores.push({
               id: parseInt(data.id),
               turno: rn[0],
               nick: data.nick
             });
-        }
+       // }               
       });
     });
 
@@ -96,10 +99,10 @@ export class TableroComponent implements OnInit {
       console.log(this.jugadores);
       alert(data.msj);
       $(document).ready(function(){
-        console.log('entré')
+        console.log('entré al ready')
         $('#1').appendTo('#jugador1')
-        $('#3').appendTo('#jugador2')
-        $('#2').appendTo('#jugador3')
+        $('#2').appendTo('#jugador2')
+        $('#3').appendTo('#jugador3')
         $('#4').appendTo('#jugador4')
     });
     });
@@ -201,7 +204,7 @@ tipo:any;
   // }
 }
 /**
- * https://i.imgur.com/bUgJqBI.png tabla en blanco
+ * https://imgur.com/bUgJqBI tabla en blanco
  * https://i.imgur.com/VBaXzjM.png con letras
 */
 
