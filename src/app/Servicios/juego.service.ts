@@ -52,6 +52,7 @@ export class JuegoService {
   }
 
   ganador(id: number) {
-    return this.http.post<any>(this.root + 'ganador/' + id, id);
+    debugger;
+    return this.http.post<any>(this.root + 'ganador/' + id, {});
   }
 }

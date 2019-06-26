@@ -85,6 +85,7 @@ export class TableroComponent implements OnInit {
     
     this.channel.on('skip', (data) => {
       this.jugadores = data.jugadores;
+      this.turnos = data.turnos;
 
       $(document).ready(function(){
         console.log('entré')
@@ -94,7 +95,8 @@ export class TableroComponent implements OnInit {
         $('#4').appendTo('#jugador4')
       });
 
-      if (this.contadorTurnos >= 4) {
+      debugger;
+      if (data.turnos >= 4) {
         //función para declarar ganador
         this.declararGanador();
       }
@@ -118,21 +120,6 @@ export class TableroComponent implements OnInit {
       });
 
     });
-    //turnos globales
-    // this.channel.on('pasarturno',turno=>{
-    //   this.jugadores.forEach(jugador => {
-    //     if(jugador.su_turno == turno){
-    //       console.log('es mi turno'+ jugador.turno)
-    //       this.jugadores[jugador.turno].su_turno = true
-    //       jugador.su_turno = false;
-    //     }else{
-    //       console.log('no es mi turno')
-    //       jugador.su_turno = false;
-    //     }
-    //   });
-
-    // console.log('Sigue el jugador número:' + turno)
-    // });
   }
 
 contadorTurnos: number = 0;
@@ -148,10 +135,25 @@ contadorTurnos: number = 0;
       el.totalPts = totalPts;
     });
 
-    console.log(this.jugadores);
+    this.jugadores = this.jugadores.filter((el) => {
+      return el.totalPts <= 21;
+    })
+    debugger;
+
     var res = Math.max.apply(Math,this.jugadores.map(function(o){return o.totalPts;}))
 
-    var obj = this.jugadores.find(function(o){ return o.totalPts == res; });
+    var obj = this.jugadores.find(function(o){ return o.totalPts == res; })
+    debugger;    
+
+    // var minimo = Math.min.apply(Math,this.jugadores.map(function(o){return o.totalPts;}))
+
+    // const veintiuno = 21;
+    // debugger;
+    // var obj = this.jugadores.find(
+    //   function(o){ 
+    //     debugger;
+    //     return o.totalPts > minimo && o.totalPts <= veintiuno; 
+    //   });
 
     this.juego_service.ganador(obj.id).subscribe(res => {
       alert("EL GANADOR ES: " + obj.jugador);
@@ -224,8 +226,6 @@ tipo:any;
   
   //pasar turno para que el otro jugador siga
   acabar() {
-    this.contadorTurnos++;
-
     this.channel.emit('skip', {jugador: parseInt(localStorage.getItem('jugador')), jugadores: this.jugadores});
   }
 
