@@ -14,7 +14,7 @@ import { stringify } from '@angular/compiler/src/util';
 export class TableroComponent implements OnInit {
 
   //socket
-  socket = Ws('ws://192.168.50.10:3333');
+  socket = Ws('ws://127.0.0.1:3333');
   channel: any;
   room: number;
   contador_turno:number=4;

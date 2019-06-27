@@ -16,17 +16,24 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  root: string = "http://192.168.50.10:3333/";
+  root: string = "http://127.0.0.1:3333/";
   flag: boolean = false;
 
   login(nickname: string, password: string, url: string) {
-
     let jugador = {
       nickname: nickname,
       password: password
     }
-
     return this.http.post<any>(this.root + url, jugador);
+  }
+
+  //VERIFICAR SI EL USUARIO ESTÁ LOGEADO O NO
+  ValidaTipo(tipo){
+    if(tipo){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   
