@@ -4,6 +4,7 @@ import { JugadorService } from 'src/app/Servicios/jugador.service';
 import { Router } from '@angular/router';
 import Ws from '@adonisjs/websocket-client';
 import { HttpClient } from '@angular/common/http';
+import * as conecta from '../../Modelos/Urls';
 
 @Component({
   selector: 'app-crear-sala',
@@ -19,28 +20,29 @@ export class CrearSalaComponent implements OnInit {
         Validators.required,
         Validators.minLength(2),
       ]),
-      
+
     });
 
-  socket = Ws('ws://127.0.0.1:3333');
+  // socket = Ws('ws://192.168.50.10:3333');
+  socket = Ws(conecta.url_websocket);
   constructor(private jugador_service: JugadorService, private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
     this.socket = this.socket.connect();
     this.socket.subscribe('lobby');
   }
-  
-  crearsala() 
+
+  crearsala()
     {
      const   nombre_sala=  this.form.value.nombre_sala
      this.jugador_service.createroom(nombre_sala).subscribe(data=>{
         console.log(data);
-        
+
      })
      const lobby = this.socket.getSubscription('lobby');
      lobby.emit('message', nombre_sala);
      this.form.reset();
     }
-  
+
 
 }

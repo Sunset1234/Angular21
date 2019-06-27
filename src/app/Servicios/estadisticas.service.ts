@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import * as conecta from '../Modelos/Urls';
 @Injectable({
   providedIn: 'root'
 })
 export class EstadisticasService {
-  root: string = "127.0.0.1:3333/";
+  root: string = conecta.url_http;
   estadistica: string = "estadisticas/";
   constructor(private conexion: HttpClient) { }
 
