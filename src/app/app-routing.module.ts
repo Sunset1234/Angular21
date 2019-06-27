@@ -8,6 +8,7 @@ import { TableroComponent } from './Componentes/tablero/tablero.component';
 import { LobbyComponent } from './Componentes/lobby/lobby.component';
 import { InicioComponent } from './Componentes/inicio/inicio.component';
 import { DashboardComponent } from './Componentes/dashboard/dashboard.component';
+import { RoomGuard } from './Guards/room.guard';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
   {
     path: 'tablero',
     component:TableroComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, RoomGuard]
   },
   {
     path: 'lobby',

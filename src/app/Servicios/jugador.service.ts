@@ -8,7 +8,8 @@ import { Router, CanActivate} from '@angular/router';
 export class JugadorService {
 
   constructor(private http: HttpClient) { }
-  root: string = "http://192.168.50.10:3333/";
+  // root: string = "http://192.168.50.10:3333/";
+  root: string = "http://127.0.0.1:3333/";
   //una sola ruta
   jugador(nickname: string, password: string, url: string) {
 

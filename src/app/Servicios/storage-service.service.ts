@@ -5,8 +5,9 @@ import { Carta } from '../Modelos/Carta';
 import Ws from '@adonisjs/websocket-client';
 
 // 1Inicializar el socket
-const ws = Ws('ws://192.168.50.10:3333');
 
+// const ws = Ws('ws://192.168.50.10:3333');
+const ws = Ws('ws://127.0.0.1:3333');
 @Injectable({
   providedIn: 'root'
 })
@@ -45,7 +46,8 @@ export class StorageServiceService {
   }
 
   //---GET IMAGENES--//
-  readonly UrlGetCartas = "http://192.168.50.10:3333";
+  // readonly UrlGetCartas = "http://192.168.50.10:3333";
+  readonly UrlGetCartas = "http:// 127.0.0.1:3333";
   carta:any;
   GetCartas(){
     this.carta=this.http.get(this.UrlGetCartas);

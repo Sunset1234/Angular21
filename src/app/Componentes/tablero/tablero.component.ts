@@ -3,7 +3,9 @@ import Ws from '@adonisjs/websocket-client';
 import { JuegoService } from 'src/app/Servicios/juego.service';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
-import { stringify } from '@angular/compiler/src/util';
+import { Event as NavigationEvent } from "@angular/router";
+import { NavigationStart } from "@angular/router";
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tablero',
@@ -14,7 +16,8 @@ import { stringify } from '@angular/compiler/src/util';
 export class TableroComponent implements OnInit {
 
   //socket
-  socket = Ws('ws://192.168.50.10:3333');
+  // socket = Ws('ws://192.168.50.10:3333');
+  socket = Ws('ws://127.0.0.1:3333');
   channel: any;
   room: number;
   contador_turno:number=4;
@@ -44,6 +47,25 @@ export class TableroComponent implements OnInit {
     this.room = parseInt(localStorage.getItem('juego'));
     this.socket = this.socket.connect();
     this.channel = this.socket.subscribe('juego:' + this.room);
+
+    router.events.pipe(
+      filter(( event: NavigationEvent ) => {
+        return( event instanceof NavigationStart );
+      })).subscribe(( event: NavigationStart ) => {
+        if (!this.ended) {
+          //formdata porque es lo mas parecido a un objeto que se puede mandar
+          //un formdata sólo acepta pares de llaves y valores como cadenas chsm
+          var formdata = new FormData();
+          formdata.append('room', localStorage.getItem('juego'));
+          formdata.append('qlo', localStorage.getItem('jugador'));
+          formdata.append('jugadores', JSON.stringify(this.jugadores));
+          /*
+            This method addresses the needs of analytics and diagnostics code that typically attempts to 
+            send data to a web server prior to the unloading of the document. 
+          */
+          navigator.sendBeacon('http://127.0.0.1:3333/abandonar', formdata);
+        }
+      });
   }
 
   tipoUser:any;
@@ -94,7 +116,18 @@ export class TableroComponent implements OnInit {
         this.jugador = data.msj; //mensaje de aviso
         this.counter = data.count; //contador
         this.jugadores = data.jugadores;
-        debugger;
+    });
+
+    this.channel.on('abandonar', (data) => {
+      this.jugadores = data.jugadores;
+      this.counter = data.counter;
+
+      const room = this.socket.getSubscription('juego:' + this.room);
+      room.emit('rajar', {qlo: data.rajon, room: this.room});
+    });
+
+    this.channel.on('rajar', (data) => {
+      debugger;
     });
 
     this.channel.on('barajear', (data) => {
@@ -126,6 +159,7 @@ export class TableroComponent implements OnInit {
       debugger;
       if (data.turnos >= 4) {
         //función para declarar ganador
+        this.ended = true;
         this.declararGanador();
       }
 
@@ -153,6 +187,7 @@ export class TableroComponent implements OnInit {
 contadorTurnos: number = 0;
 
   declararGanador() {
+    //recorrido  de todos los jugadores y suma sus puntos
     this.jugadores.forEach((el) => {
       var totalPts = 0;
 
@@ -163,29 +198,19 @@ contadorTurnos: number = 0;
       el.totalPts = totalPts;
     });
 
+    //filtro los weyes que se pasaron
     this.jugadores = this.jugadores.filter((el) => {
       return el.totalPts <= 21;
-    })
-    debugger;
+    });
+
+    //obtengo el mayor. no hay empate, gana el primero que salga csm
 
     var res = Math.max.apply(Math,this.jugadores.map(function(o){return o.totalPts;}))
 
-    var obj = this.jugadores.find(function(o){ return o.totalPts == res; })
-    debugger;    
-
-    // var minimo = Math.min.apply(Math,this.jugadores.map(function(o){return o.totalPts;}))
-
-    // const veintiuno = 21;
-    // debugger;
-    // var obj = this.jugadores.find(
-    //   function(o){ 
-    //     debugger;
-    //     return o.totalPts > minimo && o.totalPts <= veintiuno; 
-    //   });
+    var obj = this.jugadores.find(function(o){ return o.totalPts == res; })  
 
     this.juego_service.ganador(obj.id).subscribe(res => {
       alert("EL GANADOR ES: " + obj.jugador);
-      this.ended = true;
       this.router.navigate(['lobby']);
     });
   }
@@ -257,30 +282,37 @@ tipo:any;
     this.channel.emit('skip', {jugador: parseInt(localStorage.getItem('jugador')), jugadores: this.jugadores});
   }
 
-  // @HostListener('window:unload', [ '$event' ])
-  // unloadHandler(event) {
+  //este listener espera al unload, así que si se va o recarga le quitamos el token alv
+  //el guard por ende, ya no lo dejará entrar
+    
+  @HostListener('window:unload', [ '$event' ])
+  unloadHandler(event) {
 
-  //   localStorage.removeItem('juego');
+    //formdata porque es lo mas parecido a un objeto que se puede mandar
+    //un formdata sólo acepta pares de llaves y valores como cadenas chsm
+    var formdata = new FormData();
+    formdata.append('room', localStorage.getItem('juego'));
+    formdata.append('qlo', localStorage.getItem('jugador'));
+    formdata.append('jugadores', JSON.stringify(this.jugadores));
 
-  //   if (!this.ended) {
-  //     //si el juego no ha terminado, y abandona, consideramos la partida como perdida.
-  //     this.juego_service.eliminarJugador(parseInt(localStorage.getItem('jugador')), this.room)
-  //         .subscribe((res) => {
-  //           console.log("ECHADO POR PARGUELA");
-  //           // localStorage.removeItem('juego');
-  //         });
-  //   }
-  //   // this.channel.close();
-  // }
+    /*
+      This method addresses the needs of analytics and diagnostics code that typically attempts to 
+      send data to a web server prior to the unloading of the document. 
+    */
+    navigator.sendBeacon('http://127.0.0.1:3333/abandonar', formdata);
+
+    // localStorage.removeItem('juego');
+    // this.channel.close();
+  }
 }
 /**
  * https://imgur.com/bUgJqBI tabla en blanco
  * https://i.imgur.com/VBaXzjM.png con letras
 */
 
-// window.addEventListener('beforeunload', (event) => {
-//   // Cancel the event as stated by the standard.
-//   event.preventDefault();
-//   // Chrome requires returnValue to be set.
-//   event.returnValue = '';
-// });
+window.addEventListener('beforeunload', (event) => {
+  // Cancel the event as stated by the standard.
+  event.preventDefault();
+  // Chrome requires returnValue to be set.
+  event.returnValue = '';
+});
