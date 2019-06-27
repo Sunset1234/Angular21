@@ -128,7 +128,7 @@ export class TableroComponent implements OnInit {
     });
 
     this.channel.on('rajar', (data) => {
-      debugger;
+
     });
 
     this.channel.on('barajear', (data) => {
@@ -139,10 +139,13 @@ export class TableroComponent implements OnInit {
       this.alerta.setMessage(data.msj,'success');
       $(document).ready(function(){
         console.log('entré al ready')
+        $('.jugador').removeClass('d-none')
+        $('#bloque').removeClass('d-none')
         $('#1').appendTo('#jugador1')
         $('#2').appendTo('#jugador2')
         $('#3').appendTo('#jugador3')
         $('#4').appendTo('#jugador4')
+
     });
     });
 
@@ -153,9 +156,12 @@ export class TableroComponent implements OnInit {
 
       $(document).ready(function(){
         console.log('entré')
+        $('.jugador').removeClass('d-none')
+        $('#bloque').removeClass('d-none')
+
         $('#1').appendTo('#jugador1')
-        $('#3').appendTo('#jugador2')
-        $('#2').appendTo('#jugador3')
+        $('#2').appendTo('#jugador2')
+        $('#3').appendTo('#jugador3')
         $('#4').appendTo('#jugador4')
       });
 
