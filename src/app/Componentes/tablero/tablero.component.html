@@ -6,35 +6,47 @@
       Contador y botón de administrador para iniciar juego.
       TODO: CHECAR CON GUARD O ALGO QUE TENG PERMISO DE ADMIN Y QUE SÓLO SEA VISIBLE POR ESTE
     -->
-    <div class="card col-3 shadow" >
-      <div class="card-body">
+    <div class="row justify-content-center">
+       <div class="card col-3 shadow-sm " >
+      <div class="card-body align-content-center text-center">
         <h5 class="card-title" id="msg" [ngClass]="{'msj': true}"  class="msj">{{jugador}}</h5>
+        <h5 class="card-text" *ngIf="counter < 4 ">Esperando Jugadores...</h5>
         <h5 class="card-title">Jugadores: {{counter}}</h5>
-        <button *ngIf="validaBoton" class="btn btn-primary" (click)="startGame()"> Iniciar partida</button>
+        <button *ngIf="validaBoton" class="btn btn-block btn-primary" (click)="startGame()"> Iniciar partida</button>
       </div>
+    </div>
+
     </div>
 
     <!-- posición de los jugadores-->
-    <div style="height:200px;" *ngFor="let item of jugadores " class="jugador" id="{{ item.turno }}">
+    <div style="height:200px;" *ngFor="let item of jugadores " class="jugador align-content-center d-none" id="{{ item.turno }}">
       <div>
           <img *ngFor="let carta of item.cartas" class="cartas" [src]="ConvertString(locals.getItem('jugador')) === item.id ? carta[0].src : (carta[0].hidden ? urlOculta : carta[0].src)" alt="">
+
+          <h6 style="color: goldenrod" class="align-items-center mt-3"><b> Jugador Nº: {{ item.turno }} </b></h6>
       </div>
-        <p  style=" font-family: 'Raleway', sans-serif;
-        text-shadow: 1px 1px  white;font-size: 20px;">{{item.jugador}}</p>
-        <button class="btn btn-dark mr-2" *ngIf="this.item.su_turno && this.item.id==id_jugador" (click)="pedirUna(this.item.turno,this.item.su_turno)">Pedir carta</button>
-        <button class="btn btn-danger" *ngIf="this.item.su_turno && this.item.id==id_jugador" (click)="acabar()"> Pasar turno</button>
-    </div>
-    <div class="containr">
+
+          </div>
+    <div class="container-fluid d-none" id="bloque">
       <div class="row align-items-end">
-        <div id="jugador1"></div>
-        <div id="jugador2"> </div>
-        <div id="jugador3"></div>
-        <div id="jugador4"></div>
+        <div id="jugador1" class="align-items-center text-center "></div>
+        <div id="jugador2" class="align-items-center text-center"> </div>
+        <div id="jugador3" class="align-items-center text-center "></div>
+        <div id="jugador4" class="align-items-end text-center "></div>
       </div>
     </div>
      <!--<img src="https://i.imgur.com/VBaXzjM.png" class="img-fluid" alt="">-->
+    <div class="navbar-dark bg-dark fixed-bottom container">
+      <div class="d-flex flex-row-reverse justify-content-center">
 
+          <div class=" flex-fill p-3 text-white " *ngFor="let item of jugadores ">
+                <h6>{{ item.jugador }}, jugador Nº: {{ item.turno }}</h6>
+                 <button class="btn btn-primary mr-2" *ngIf="this.item.su_turno && this.item.id==id_jugador" (click)="pedirUna(this.item.turno,this.item.su_turno)">Pedir carta</button>
+                 <button class="btn btn-danger" *ngIf="this.item.su_turno && this.item.id==id_jugador" (click)="acabar()"> Pasar turno</button>
 
+        </div>
+      </div>
+    </div>
     </section>
   </div>
 </div>
