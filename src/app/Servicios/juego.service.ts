@@ -36,6 +36,7 @@ export class JuegoService {
       });
       
       // return this.http.get<any>('http://192.168.50.10:3333/' + 'verificarRoom', {headers: headers});
+  
       return this.http.get<any>('http://127.0.0.1:3333/' + 'verificarRoom', {headers: headers});
   }
 

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EstadisticasService {
-  root: string = "http://127.0.0.1:3333/";
+  root: string = "127.0.0.1:3333/";
   estadistica: string = "estadisticas/";
   constructor(private conexion: HttpClient) { }
 

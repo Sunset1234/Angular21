@@ -6,7 +6,7 @@ import * as $ from 'jquery';
 import { Event as NavigationEvent } from "@angular/router";
 import { NavigationStart } from "@angular/router";
 import { filter } from 'rxjs/operators';
-
+import { AlertsService } from 'angular-alert-module';
 @Component({
   selector: 'app-tablero',
   templateUrl: './tablero.component.html',
@@ -42,7 +42,7 @@ export class TableroComponent implements OnInit {
   locals: any = localStorage;
   id_jugador = localStorage.jugador;
 
-  constructor(private juego_service: JuegoService, private router: Router) {
+  constructor(private alerta:AlertsService,private juego_service: JuegoService, private router: Router) {
     //se abre la conexión al canal y tópic
     this.room = parseInt(localStorage.getItem('juego'));
     this.socket = this.socket.connect();
@@ -133,7 +133,9 @@ export class TableroComponent implements OnInit {
     this.channel.on('barajear', (data) => {
       this.jugadores = data.jugadores;
       console.log(this.jugadores);
-      alert(data.msj);
+      //alert(data.msj);
+      this.alerta.setDefaults('timeout',5);
+      this.alerta.setMessage(data.msj,'success');
       $(document).ready(function(){
         console.log('entré al ready')
         $('#1').appendTo('#jugador1')
@@ -210,7 +212,9 @@ contadorTurnos: number = 0;
     var obj = this.jugadores.find(function(o){ return o.totalPts == res; })  
 
     this.juego_service.ganador(obj.id).subscribe(res => {
-      alert("EL GANADOR ES: " + obj.jugador);
+      this.alerta.setDefaults('timeout',8);
+      this.alerta.setMessage('EL GANADOR ES: '+ obj.jugador,'success');
+      this.ended = true;
       this.router.navigate(['lobby']);
     });
   }
@@ -269,7 +273,8 @@ tipo:any;
         if(jugador.cartas.length <= 4) {
           this.channel.emit('pedir', { valor, turno});
         }else{
-          alert('Límite de cartas alcanzadas: máximo 5 cartas')
+         
+          this.alerta.setMessage('Límite de cartas alcanzadas: máximo 5 cartas','error');
         }
       }
     })
