@@ -10,7 +10,9 @@
       <div class="card-body">
         <h5 class="card-title" id="msg" [ngClass]="{'msj': true}"  class="msj">{{jugador}}</h5>
         <h5 class="card-title">Jugadores: {{counter}}</h5>
-        <button *ngIf="validaBoton" class="btn btn-primary" (click)="startGame()"> Iniciar partida</button>
+        <div *ngIf=" estado_partida === 1">
+          <button id="botonesconder" name="botonesconder" *ngIf="validaBoton" class="btn btn-primary" (click)="startGame()"> Iniciar partida</button>
+        </div>
       </div>
     </div>
 

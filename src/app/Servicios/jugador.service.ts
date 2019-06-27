@@ -25,4 +25,6 @@ export class JugadorService {
     return this.http.post(this.root+'createroom',juego, {responseType: 'text'});   
   }
 
+ 
+
 }
