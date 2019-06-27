@@ -4,7 +4,7 @@ import { JuegoService } from 'src/app/Servicios/juego.service';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { stringify } from '@angular/compiler/src/util';
-
+import { AlertsService } from 'angular-alert-module';
 @Component({
   selector: 'app-tablero',
   templateUrl: './tablero.component.html',
@@ -14,7 +14,7 @@ import { stringify } from '@angular/compiler/src/util';
 export class TableroComponent implements OnInit {
 
   //socket
-  socket = Ws('ws://192.168.50.10:3333');
+  socket = Ws('ws://127.0.0.1:3333');
   channel: any;
   room: number;
   contador_turno:number=4;
@@ -39,7 +39,7 @@ export class TableroComponent implements OnInit {
   locals: any = localStorage;
   id_jugador = localStorage.jugador;
 
-  constructor(private juego_service: JuegoService, private router: Router) {
+  constructor(private alerta:AlertsService,private juego_service: JuegoService, private router: Router) {
     //se abre la conexión al canal y tópic
     this.room = parseInt(localStorage.getItem('juego'));
     this.socket = this.socket.connect();
@@ -100,7 +100,9 @@ export class TableroComponent implements OnInit {
     this.channel.on('barajear', (data) => {
       this.jugadores = data.jugadores;
       console.log(this.jugadores);
-      alert(data.msj);
+      //alert(data.msj);
+      this.alerta.setDefaults('timeout',5);
+      this.alerta.setMessage(data.msj,'success');
       $(document).ready(function(){
         console.log('entré al ready')
         $('#1').appendTo('#jugador1')
@@ -184,7 +186,8 @@ contadorTurnos: number = 0;
     //   });
 
     this.juego_service.ganador(obj.id).subscribe(res => {
-      alert("EL GANADOR ES: " + obj.jugador);
+      this.alerta.setDefaults('timeout',8);
+      this.alerta.setMessage('EL GANADOR ES: '+ obj.jugador,'success');
       this.ended = true;
       this.router.navigate(['lobby']);
     });
@@ -244,7 +247,8 @@ tipo:any;
         if(jugador.cartas.length <= 4) {
           this.channel.emit('pedir', { valor, turno});
         }else{
-          alert('Límite de cartas alcanzadas: máximo 5 cartas')
+         
+          this.alerta.setMessage('Límite de cartas alcanzadas: máximo 5 cartas','error');
         }
       }
     })

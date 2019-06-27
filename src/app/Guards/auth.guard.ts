@@ -49,7 +49,7 @@ export class AuthGuard implements CanActivate {
       "autorizacion" : localStorage.getItem("token")
     });
 
-    return this.http.get('http://192.168.50.10:3333/' + 'verificar', {headers: headerAuth});
+    return this.http.get('http://127.0.0.1:3333/' + 'verificar', {headers: headerAuth});
   }
 
 }

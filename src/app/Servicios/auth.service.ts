@@ -16,7 +16,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  root: string = "http://192.168.50.10:3333/";
+  root: string = "http://127.0.0.1:3333/";
   flag: boolean = false;
 
   login(nickname: string, password: string, url: string) {

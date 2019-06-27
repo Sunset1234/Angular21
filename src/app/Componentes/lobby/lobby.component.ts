@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { JuegoService } from 'src/app/Servicios/juego.service';
 import { User } from 'src/app/Modelos/user';
 import { forEach } from '@angular/router/src/utils/collection';
-
+import { AlertsService } from 'angular-alert-module';
 @Component({
   selector: 'app-lobby',
   templateUrl: './lobby.component.html',
@@ -12,13 +12,13 @@ import { forEach } from '@angular/router/src/utils/collection';
 })
 export class LobbyComponent implements OnInit {
 
-  socket= Ws('ws://192.168.50.10:3333');
+  socket= Ws('ws://127.0.0.1:3333');
   channel: any;
   id:string;
   room:string='';
   salas: Array<any>;
 
-  constructor(private router: Router, private juego_service: JuegoService) {
+  constructor(private alerta:AlertsService,private router: Router, private juego_service: JuegoService) {
     //se abre la conexión y la subscripción al canal
     this.socket = this.socket.connect();
     this.channel = this.socket.subscribe('lobby'); 
@@ -64,7 +64,7 @@ export class LobbyComponent implements OnInit {
         this.channel.close();
         this.router.navigate(['tablero']);
       } else {
-        alert("SALA INACCESIBLE");
+        this.alerta.setMessage('Sala Inaccesible','error');
       }
     });
   }

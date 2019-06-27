@@ -4,7 +4,7 @@ import { JugadorService } from 'src/app/Servicios/jugador.service';
 import { Router } from '@angular/router';
 import Ws from '@adonisjs/websocket-client';
 import { HttpClient } from '@angular/common/http';
-
+import { AlertsService } from 'angular-alert-module';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -26,9 +26,9 @@ export class RegistroComponent implements OnInit {
     ])
   });
 
-  socket = Ws('ws://192.168.50.10:3333');
+  socket = Ws('ws://127.0.0.1:3333');
 
-  constructor(private jugador_service: JugadorService, private router: Router, private http: HttpClient) { }
+  constructor(private alerta:AlertsService,private jugador_service: JugadorService, private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
     this.socket = this.socket.connect();
@@ -42,7 +42,8 @@ export class RegistroComponent implements OnInit {
       localStorage.setItem('recien', '1');
       this.router.navigate(['/login']);
     },error=>{
-      alert('Ya existe un usuario con ese NickName')
+      
+      this.alerta.setMessage('Ya existe ese Nickname','error');
     });
 
   }

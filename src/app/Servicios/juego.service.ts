@@ -11,7 +11,7 @@ export class JuegoService {
 
   constructor(private http: HttpClient) { }
 
-  root: string = "http://192.168.50.10:3333/";
+  root: string = "http://127.0.0.1:3333/";
 
   getRooms() {
     return this.http.get<any>(this.root + 'juegos');
@@ -34,7 +34,7 @@ export class JuegoService {
         "jugador" : jugadorId.toString()
       });
   
-      return this.http.get<any>('http://192.168.50.10:3333/' + 'verificarRoom', {headers: headers});
+      return this.http.get<any>('http://127.0.0.1:3333/' + 'verificarRoom', {headers: headers});
   }
 
   ConsultaTipo(id:String){
