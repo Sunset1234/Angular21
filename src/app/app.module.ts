@@ -15,6 +15,7 @@ import { LobbyComponent } from './Componentes/lobby/lobby.component';
 import { CrearSalaComponent } from './Componentes/crear-sala/crear-sala.component';
 import { InicioComponent } from './Componentes/inicio/inicio.component';
 import { DashboardComponent } from './Componentes/dashboard/dashboard.component';
+import { AlertsModule } from 'angular-alert-module';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { DashboardComponent } from './Componentes/dashboard/dashboard.component'
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AlertsModule.forRoot()
   ],
   providers: [
     // {

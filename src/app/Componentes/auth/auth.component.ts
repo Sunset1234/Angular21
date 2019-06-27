@@ -3,7 +3,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/Servicios/auth.service';
 import { Router } from '@angular/router';
 import { JuegoService } from 'src/app/Servicios/juego.service';
-
+import { AlertsService } from 'angular-alert-module';
 
 @Component({
   selector: 'app-auth',
@@ -30,10 +30,11 @@ export class AuthComponent implements OnInit {
   @Output() getEstadoUser=new EventEmitter();
   public estadoUser:boolean;
 
-  constructor(private auth_service: AuthService, private router: Router, private _juego_service:JuegoService) { }
+  constructor(private alerta:AlertsService, private auth_service: AuthService, private router: Router, private _juego_service:JuegoService) { }
 
   ngOnInit() {
     this.estadoUser=false;
+    
   }
 
   msg:string="logeado";
@@ -45,7 +46,7 @@ export class AuthComponent implements OnInit {
       this.router.navigate(['/lobby']);
      
       },error=>{
-          alert('Correo o contraseña invalidos');
+        this.alerta.setMessage('Usuario o contraseña invalidos','error');
       });
   }
 

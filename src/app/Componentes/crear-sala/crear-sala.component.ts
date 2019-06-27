@@ -35,9 +35,11 @@ export class CrearSalaComponent implements OnInit {
      const   nombre_sala=  this.form.value.nombre_sala
      this.jugador_service.createroom(nombre_sala).subscribe(data=>{
         console.log(data);
+        
      })
      const lobby = this.socket.getSubscription('lobby');
      lobby.emit('message', nombre_sala);
+     this.form.reset();
     }
   
 
