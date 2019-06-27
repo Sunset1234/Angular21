@@ -38,16 +38,13 @@ export class AuthComponent implements OnInit {
   }
 
   msg:string="logeado";
-  login(event) {
-    console.log(event)
-
+  login() {      
     this.auth_service.login(this.form.value.nickname, this.form.value.password, 'login').subscribe(data => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('jugador', data.jugador);
       localStorage.setItem('nick', data.nick);
-      this.estadoUser=true;  
-      this.getEstadoUser.emit(this.estadoUser)
       this.router.navigate(['/lobby']);
+     
       },error=>{
         this.alerta.setMessage('Usuario o contraseña invalidos','error');
       });

@@ -1,0 +1,20 @@
+.bg{
+    background-color: #f2f2f2f2;
+}
+
+footer{
+    background:url('https://cdn.pixabay.com/photo/2014/05/24/00/07/woven-cloth-352481_960_720.jpg');
+    color: white;
+}
+
+.estadisticas{
+    margin-top: 20px;
+}
+
+.estadisticas2{
+    margin-top: 20px;
+}
+
+.container-fluid{
+    font-family: 'Raleway', sans-serif;
+}

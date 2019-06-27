@@ -21,14 +21,11 @@ export class AuthService {
   flag: boolean = false;
 
   login(nickname: string, password: string, url: string) {
-
     let jugador = {
       nickname: nickname,
       password: password
     }
-
     return this.http.post<any>(this.root + url, jugador);
   }
-
 
 }
