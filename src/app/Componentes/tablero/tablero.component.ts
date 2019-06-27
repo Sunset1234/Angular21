@@ -14,7 +14,10 @@ import * as conecta from '../../Modelos/Urls';
   styleUrls: ['./tablero.component.css']
 })
 
-export class TableroComponent implements OnInit {
+export class TableroComponent implements OnInit,OnDestroy {
+  ngOnDestroy(): void {
+    this.socket.close();
+  }
 
   //socket
   // socket = Ws('ws://192.168.50.10:3333');
@@ -170,6 +173,7 @@ export class TableroComponent implements OnInit {
         //función para declarar ganador
         this.ended = true;
         this.declararGanador();
+      
       }
 
     });
@@ -224,6 +228,12 @@ contadorTurnos: number = 0;
       this.ended = true;
       this.router.navigate(['lobby']);
     });
+
+    this.destruyesocket()
+  }
+
+  destruyesocket(){
+    this.socket.close();
   }
 
 tipo:any;
