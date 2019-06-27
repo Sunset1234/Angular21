@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-
+import * as conecta from '../Modelos/Urls';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +17,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   // root: string = "http://192.168.50.10:3333/";
-  root: string = "http://127.0.0.1:3333/";
+  root: string = conecta.url_http;
   flag: boolean = false;
 
   login(nickname: string, password: string, url: string) {
@@ -30,5 +30,5 @@ export class AuthService {
     return this.http.post<any>(this.root + url, jugador);
   }
 
-  
+
 }

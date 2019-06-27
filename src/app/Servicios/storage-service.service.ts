@@ -3,20 +3,16 @@ import {HttpClient,HttpHeaders} from '@angular/common/http'
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Carta } from '../Modelos/Carta';
 import Ws from '@adonisjs/websocket-client';
+import * as conecta from '../Modelos/Urls';
 
 // 1Inicializar el socket
-<<<<<<< HEAD
-=======
-const ws = Ws('ws://127.0.0.1:3333');
->>>>>>> 5d449aea0acb6c36fd9c0a45ddcce6ef7e9ea96b
+const ws = Ws(conecta.url_websocket);
 
-// const ws = Ws('ws://192.168.50.10:3333');
-const ws = Ws('ws://127.0.0.1:3333');
 @Injectable({
   providedIn: 'root'
 })
 export class StorageServiceService {
-  
+
   // 2 ESA MAMADA ES PARA HACERLO OBSERVABLE
   private messageSource = new BehaviorSubject([]);
   currentMessage = this.messageSource.asObservable();
@@ -51,7 +47,7 @@ export class StorageServiceService {
 
   //---GET IMAGENES--//
   // readonly UrlGetCartas = "http://192.168.50.10:3333";
-  readonly UrlGetCartas = "http://127.0.0.1:3333";
+  readonly UrlGetCartas = conecta.url_http;
   carta:any;
   GetCartas(){
     this.carta=this.http.get(this.UrlGetCartas);

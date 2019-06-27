@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import Ws from '@adonisjs/websocket-client';
 import { HttpClient } from '@angular/common/http';
 import { AlertsService } from 'angular-alert-module';
+import * as conecta from '../../Modelos/Urls';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -27,7 +28,7 @@ export class RegistroComponent implements OnInit {
   });
 
   // socket = Ws('ws://192.168.50.10:3333');
-  socket = Ws('ws://127.0.0.1:3333');
+  socket = Ws(conecta.url_websocket);
 
   constructor(private alerta:AlertsService,private jugador_service: JugadorService, private router: Router, private http: HttpClient) { }
 
@@ -43,7 +44,7 @@ export class RegistroComponent implements OnInit {
       localStorage.setItem('recien', '1');
       this.router.navigate(['/login']);
     },error=>{
-      
+
       this.alerta.setMessage('Ya existe ese Nickname','error');
     });
 

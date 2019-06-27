@@ -7,6 +7,7 @@ import { Event as NavigationEvent } from "@angular/router";
 import { NavigationStart } from "@angular/router";
 import { filter } from 'rxjs/operators';
 import { AlertsService } from 'angular-alert-module';
+import * as conecta from '../../Modelos/Urls';
 @Component({
   selector: 'app-tablero',
   templateUrl: './tablero.component.html',
@@ -17,7 +18,7 @@ export class TableroComponent implements OnInit {
 
   //socket
   // socket = Ws('ws://192.168.50.10:3333');
-  socket = Ws('ws://127.0.0.1:3333');
+  socket = Ws(conecta.url_websocket);
   channel: any;
   room: number;
   contador_turno:number=4;
@@ -60,10 +61,10 @@ export class TableroComponent implements OnInit {
           formdata.append('qlo', localStorage.getItem('jugador'));
           formdata.append('jugadores', JSON.stringify(this.jugadores));
           /*
-            This method addresses the needs of analytics and diagnostics code that typically attempts to 
-            send data to a web server prior to the unloading of the document. 
+            This method addresses the needs of analytics and diagnostics code that typically attempts to
+            send data to a web server prior to the unloading of the document.
           */
-          navigator.sendBeacon('http://127.0.0.1:3333/abandonar', formdata);
+          navigator.sendBeacon(conecta.url_http + 'abandonar', formdata);
         }
       });
   }
@@ -75,7 +76,7 @@ export class TableroComponent implements OnInit {
       alert(err);
     })
 
-    
+
 
     /*
       Evento entrar.
@@ -92,7 +93,7 @@ export class TableroComponent implements OnInit {
         if(this.tipoUser==1){
           this.validaBoton=true;
         }
-    
+
 
         // GENERAR RANDOM PARA TURNOS
         var posicion = Math.floor(Math.random() * this.turnos.length);
@@ -111,7 +112,7 @@ export class TableroComponent implements OnInit {
               turno: rn[0],
               nick: data.nick
             });
-          }          
+          }
       });
         this.jugador = data.msj; //mensaje de aviso
         this.counter = data.count; //contador
@@ -145,7 +146,7 @@ export class TableroComponent implements OnInit {
     });
     });
 
-    
+
     this.channel.on('skip', (data) => {
       this.jugadores = data.jugadores;
       this.turnos = data.turnos;
@@ -166,7 +167,7 @@ export class TableroComponent implements OnInit {
       }
 
     });
-    
+
     //metodo que se ejecuta cuando carga el componente para validar
     this.validateRoom();
     //acomodar las cartas
@@ -209,7 +210,7 @@ contadorTurnos: number = 0;
 
     var res = Math.max.apply(Math,this.jugadores.map(function(o){return o.totalPts;}))
 
-    var obj = this.jugadores.find(function(o){ return o.totalPts == res; })  
+    var obj = this.jugadores.find(function(o){ return o.totalPts == res; })
 
     this.juego_service.ganador(obj.id).subscribe(res => {
       this.alerta.setDefaults('timeout',8);
@@ -225,7 +226,7 @@ tipo:any;
     //SERVICIO PARA OBTENER TIPO DE USUARIO
     this.juego_service.ConsultaTipo(localStorage.getItem('jugador')).then( item => {
       this.tipoUser = item['es_admin'];
-      
+
       if (this.tipoUser == 1) {
         this.validaBoton = true;
       }
@@ -273,7 +274,7 @@ tipo:any;
         if(jugador.cartas.length <= 4) {
           this.channel.emit('pedir', { valor, turno});
         }else{
-         
+
           this.alerta.setMessage('Límite de cartas alcanzadas: máximo 5 cartas','error');
         }
       }
@@ -281,7 +282,7 @@ tipo:any;
 
   }
 
-  
+
   //pasar turno para que el otro jugador siga
   acabar() {
     this.channel.emit('skip', {jugador: parseInt(localStorage.getItem('jugador')), jugadores: this.jugadores});
@@ -289,7 +290,7 @@ tipo:any;
 
   //este listener espera al unload, así que si se va o recarga le quitamos el token alv
   //el guard por ende, ya no lo dejará entrar
-    
+
   @HostListener('window:unload', [ '$event' ])
   unloadHandler(event) {
 
@@ -301,10 +302,10 @@ tipo:any;
     formdata.append('jugadores', JSON.stringify(this.jugadores));
 
     /*
-      This method addresses the needs of analytics and diagnostics code that typically attempts to 
-      send data to a web server prior to the unloading of the document. 
+      This method addresses the needs of analytics and diagnostics code that typically attempts to
+      send data to a web server prior to the unloading of the document.
     */
-    navigator.sendBeacon('http://127.0.0.1:3333/abandonar', formdata);
+    navigator.sendBeacon(conecta.url_http+'abandonar', formdata);
 
     // localStorage.removeItem('juego');
     // this.channel.close();
