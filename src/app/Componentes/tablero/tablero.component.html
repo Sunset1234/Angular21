@@ -21,6 +21,7 @@
     <!-- posición de los jugadores-->
     <div style="height:200px;" *ngFor="let item of jugadores " class="jugador align-content-center d-none" id="{{ item.turno }}">
       <div>
+
           <img *ngFor="let carta of item.cartas" class="cartas" [src]="ConvertString(locals.getItem('jugador')) === item.id ? carta[0].src : (carta[0].hidden ? urlOculta : carta[0].src)" alt="">
 
           <h6 style="color: goldenrod" class="align-items-center mt-3"><b> Jugador Nº: {{ item.turno }} </b></h6>

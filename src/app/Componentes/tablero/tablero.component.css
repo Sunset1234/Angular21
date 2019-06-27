@@ -14,6 +14,7 @@ msj {
 }
 .cartas{
   height: 20vh;
+  margin-left: -40%;
 }
 
 #jugador1{

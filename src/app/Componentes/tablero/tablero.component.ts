@@ -156,6 +156,9 @@ export class TableroComponent implements OnInit {
 
       $(document).ready(function(){
         console.log('entré')
+        $('.jugador').removeClass('d-none')
+        $('#bloque').removeClass('d-none')
+
         $('#1').appendTo('#jugador1')
         $('#2').appendTo('#jugador2')
         $('#3').appendTo('#jugador3')
