@@ -7,34 +7,35 @@ msj {
 }
 #fondo{
   width: 100%;
-  height: 130vh;
+  height: 100vh;
   position: relative;
   background: url('https://imgur.com/bUgJqBI.png') top center;
   background-size: cover;
 }
 .cartas{
   height: 20vh;
+  margin-left: -40%;
 }
 
 #jugador1{
   width: 320px;
   height: 170px;
   margin-top: 30px;
-  margin-left: 995px; 
-  
+  margin-left: 995px;
+
 }
 #jugador2{
   width: 330px;
   height: 170px;
   margin-top: -30px;
-  margin-left: 666px; 
+  margin-left: 666px;
 }
 
 #jugador3{
   width: 330px;
   height: 170px;
   margin-top: -170px;
-  margin-left: 335px; 
+  margin-left: 335px;
 }
 #jugador4{
   width: 320px;
