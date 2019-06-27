@@ -4,6 +4,7 @@ import { User} from'../Modelos/user'
 import { promise } from 'protractor';
 import { Subject } from 'rxjs';
 import * as conecta from '../Modelos/Urls';
+import { Juego } from '../Modelos/juego';
 @Injectable({
   providedIn: 'root'
 })
@@ -59,5 +60,14 @@ export class JuegoService {
   ganador(id: number) {
     debugger;
     return this.http.post<any>(this.root + 'ganador/' + id, {});
+  }
+  //cambiarestado(id:any){
+   // let headers = new HttpHeaders().set('Content-Type','text');
+    //console.log('aquiiiiiiiiiiiiiiii')
+    //return this.http.post(conecta.url_http + 'cambiarestado/'+id,{headers:headers});
+  //}
+  buscarestado(id:number){
+   let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this.http.post(conecta.url_http + 'buscarestado/'+id,{headers:headers}).toPromise();
   }
 }

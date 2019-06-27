@@ -25,11 +25,11 @@ export class TableroComponent implements OnInit,OnDestroy {
   channel: any;
   room: number;
   contador_turno:number=4;
-
+  botoniniciar:boolean = false;
   jugador: string;
   jugador_id: number;
   counter: number = 0;
-
+  estado_partida : number;
   //turno para saber en qué chingados van
   turno_actual = 1;
 
@@ -75,6 +75,10 @@ export class TableroComponent implements OnInit,OnDestroy {
   tipoUser:any;
   validaBoton:boolean;
   ngOnInit() {
+    this.juego_service.buscarestado(parseInt(localStorage.getItem('juego'))).then(estado=>{
+      console.log('ghoul'+estado[0].estado_id)
+      this.estado_partida = estado[0].estado_id;
+    });
     this.channel.on('error', (err) => {
       alert(err);
     })
@@ -271,9 +275,17 @@ tipo:any;
 
       el.turno = turno[0];
     });
-
+    //this.juego_service.cambiarestado(localStorage.getItem('juego'));
     const room = this.socket.getSubscription('juego:' + this.room);
     room.emit('barajear', {jugadores: this.jugadores});
+    $(document).ready(function(){
+      console.log('entré al ready')
+      document.getElementById('botonesconder').hidden = true;
+      
+  });
+  
+   //this.botoniniciar = true;
+    
     // window.location.replace('https://www.youtube.com/watch?v=yzWAANQwnYQ');
   }
 
