@@ -70,4 +70,11 @@ export class JuegoService {
    let headers = new HttpHeaders().set('Content-Type','application/json');
     return this.http.post(conecta.url_http + 'buscarestado/'+id,{headers:headers}).toPromise();
   }
+
+  UpdateEstado(id:number){
+    console.log("servicio")
+    console.log(id)
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this.http.post(this.root+'updateEstado/'+id,{headers:headers}).toPromise()
+  }
 }

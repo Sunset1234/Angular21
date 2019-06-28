@@ -217,6 +217,7 @@ contadorTurnos: number = 0;
 
     //filtro los weyes que se pasaron
     this.jugadores = this.jugadores.filter((el) => {
+      this.router.navigate(['lobby'])
       return el.totalPts <= 21;
     });
 
@@ -282,7 +283,13 @@ tipo:any;
       console.log('entré al ready')
       document.getElementById('botonesconder').hidden = true;
       
-  });
+    });
+
+    console.log("aqui")
+    this.juego_service.UpdateEstado(parseInt(localStorage.getItem('juego'))).then(data=>{
+      console.log(data)
+    })
+
   
    //this.botoniniciar = true;
     
