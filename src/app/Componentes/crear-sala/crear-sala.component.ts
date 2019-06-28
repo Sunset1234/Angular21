@@ -44,5 +44,7 @@ export class CrearSalaComponent implements OnInit {
      this.form.reset();
     }
 
-
+    ngOnDestroy(): void {
+      this.socket.close();
+    }
 }

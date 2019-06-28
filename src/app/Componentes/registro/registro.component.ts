@@ -42,6 +42,7 @@ export class RegistroComponent implements OnInit {
     this.jugador_service.jugador(this.form.value.nickname, this.form.value.password, 'jugador').subscribe(data => {
       //si está recién registrado, quiero mostrar un mensaje en el componente de login
       localStorage.setItem('recien', '1');
+      this.socket.close();
       this.router.navigate(['/login']);
     },error=>{
 
